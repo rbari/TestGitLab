@@ -1,12 +1,4 @@
-*.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-/captures
-.externalNativeBuild
+# Created by .ignore support plugin (hsz.mobi)
 ### Android template
 # Built application files
 *.apk
@@ -23,8 +15,7 @@ bin/
 gen/
 out/
 
-# Gradle files
-.gradle/
+
 build/
 
 # Local configuration file (sdk path, etc)
@@ -42,8 +33,8 @@ proguard/
 # Android Studio captures folder
 captures/
 
-
-
+# Intellij
+*.iml
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
@@ -53,7 +44,8 @@ captures/
 # Keystore files
 *.jks
 
-
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
@@ -64,12 +56,9 @@ freeline/
 freeline_project_description.json
 
 .gitignore
-.idea/
-
-build.gradle
-gradle.properties
-gradle/
-gradlew
-gradlew.bat
-settings.gradle
+.gradle/
+.idea/libraries/
+DhakaRiders.iml
+app/app.iml
+app/build/
 app/libs/
