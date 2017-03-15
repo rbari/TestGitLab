@@ -7,26 +7,49 @@
     tools:context="com.dhakariders.activity.LoginActivity">
 
 
-    <FrameLayout
+    <ImageView
+        android:id="@+id/backGround"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/login_background" />
 
-        <ImageView
-            android:id="@+id/backGround"
+    <com.dhakariders.utils.BlurView
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:blurRadius="4"
+        app:downSampleFactor="4"
+        app:overlayColor="@color/login_overlay" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <android.support.v7.widget.CardView
+            app:cardCornerRadius="8dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/login_background" />
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:cardBackgroundColor="@color/login_cardview_bg">
 
-        <com.dhakariders.utils.BlurView
-            android:id="@+id/blurView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:blurRadius="3"
-            app:downSampleFactor="4"
-            app:overlayColor="@color/login_overlay" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="16dp">
 
-    </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log In"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
