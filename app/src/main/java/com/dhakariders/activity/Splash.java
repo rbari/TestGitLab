@@ -1,18 +1,19 @@
-package com.dhakariders;
+package com.dhakariders.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.graphics.Point;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
+
+import com.dhakariders.R;
 
 public class Splash extends AppCompatActivity {
 
@@ -53,7 +54,16 @@ public class Splash extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(Splash.this, LoginActivity.class);
+                        startActivity(i);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
 
+                    }
+                }, 200);
             }
 
             @Override

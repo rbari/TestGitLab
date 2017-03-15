@@ -1,0 +1,14 @@
+<resources>
+    <declare-styleable name="BlurView">
+        <attr name="blurRadius" format="integer"/>
+        <attr name="downSampleFactor" format="integer"/>
+        <attr name="overlayColor" format="color"/>
+    </declare-styleable>
+
+
+
+    <integer name="default_blur_radius">11</integer>
+    <integer name="default_downsample_factor">6</integer>
+    <color name="default_overlay_color">#78999999</color>
+
+</resources>
