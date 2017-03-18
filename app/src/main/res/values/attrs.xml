@@ -11,4 +11,15 @@
     <integer name="default_downsample_factor">6</integer>
     <color name="default_overlay_color">#78999999</color>
 
+
+    <declare-styleable name="password_edit_text">
+
+        <attr name="show_drawable" format="integer"/>
+        <attr name="hide_drawable" format="integer"/>
+        <attr name="password_visible" format="boolean"/>
+        <attr name="show_as_text" format="boolean"/>
+        <attr name="hide_text" format="string"/>
+        <attr name="show_text" format="string"/>
+    </declare-styleable>
+
 </resources>
