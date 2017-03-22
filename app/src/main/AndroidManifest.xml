@@ -19,9 +19,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.LoginActivity"
             android:theme="@style/LogIn"
-            android:windowSoftInputMode="adjustPan"
-            android:name=".activity.LoginActivity" />
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.Home"></activity>
     </application>
 
 </manifest>

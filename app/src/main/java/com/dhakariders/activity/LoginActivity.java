@@ -1,6 +1,7 @@
 package com.dhakariders.activity;
 
 import android.animation.AnimatorSet;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signUpCardView = findViewById(R.id.signUpCardView);
         findViewById(R.id.createAccountButton).setOnClickListener(this);
         findViewById(R.id.cancelSignUp).setOnClickListener(this);
+        findViewById(R.id.logInButton).setOnClickListener(this);
     }
 
 
@@ -45,6 +47,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             case R.id.cancelSignUp:{
                 closeSignUp();
+                break;
+            }
+            case R.id.logInButton:{
+                Intent intent =  new Intent(this, Home.class);
+                startActivity(intent);
+                finish();
                 break;
             }
         }

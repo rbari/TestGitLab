@@ -7,7 +7,7 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+
     </style>
     <style name="LogIn" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
