@@ -95,15 +95,23 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     Toolbar mToolbar;
 
+    private static final int PICKUP_STATE = 0;
+    private static final int DROPOFF_STATE = 1;
+    private static final int ORDER_STATE = 2;
+    private TextView toolBarTitle;
+    private Button orderBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_up);
-        findViewById(R.id.setLocation).setOnClickListener(new View.OnClickListener() {
+        orderBtn = (Button) findViewById(R.id.setLocation);
+        orderBtn.setTag(PICKUP_STATE);
+        orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getTag() != null && (int) v.getTag() == 1) {
+                /*if (v.getTag() != null && (int) v.getTag() == 1) {
                     toLatLong = mCenterLatLong;
                     DownloadTask downloadTask = new DownloadTask();
                     downloadTask.execute(getDirectionsUrl(fromLatLong, toLatLong));
@@ -112,9 +120,47 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                     fromLatLong = mCenterLatLong;
                     ((Button) v).setText("Set Your Drop Off");
                     onConnected(null);
+                }*/
+                switch ((int)v.getTag()){
+                    case PICKUP_STATE:{
+                        v.setTag(DROPOFF_STATE);
+                        fromLatLong = mCenterLatLong;
+                        orderBtn.setText("Set Your Drop Off");
+                        onConnected(null);
+                        updateToolbarTitle();
+                        break;
+                    }
+                    case DROPOFF_STATE:{
+                        v.setTag(ORDER_STATE);
+                        orderBtn.setText("Confirm Order");
+                        toLatLong = mCenterLatLong;
+                        DownloadTask downloadTask = new DownloadTask();
+                        downloadTask.execute(getDirectionsUrl(fromLatLong, toLatLong));
+                        updateToolbarTitle();
+                        break;
+                    }
+                    case ORDER_STATE:{
+                        break;
+                    }
                 }
             }
         });
+        updateToolbarTitle();
+
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((int)orderBtn.getTag() == PICKUP_STATE){
+                    finish();
+                }else{
+                    orderBtn.setTag(PICKUP_STATE);
+                    orderBtn.setText("Set Your Pick Up");
+                    updateToolbarTitle();
+                    onConnected(null);
+                }
+            }
+        });
+
 
         mContext = this;
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -126,9 +172,9 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         mLocationText = (ImageView) findViewById(R.id.Locality);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+       /* getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));*/
 
 
         mLocationText.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +219,26 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
             Toast.makeText(mContext, "Location not supported in this device", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void updateToolbarTitle(){
+        if(toolBarTitle == null) {
+            toolBarTitle = (TextView) findViewById(R.id.tbTitle);
+        }
+        switch ((int)orderBtn.getTag()){
+            case PICKUP_STATE:{
+                toolBarTitle.setText("Set Pick Point");
+                break;
+            }
+            case DROPOFF_STATE:{
+                toolBarTitle.setText("Set Drop Off Point");
+                break;
+            }
+            case ORDER_STATE:{
+                toolBarTitle.setText("Confirm Order");
+                break;
+            }
+        }
     }
 
 

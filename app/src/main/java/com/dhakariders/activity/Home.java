@@ -18,6 +18,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         ((TextView) findViewById(R.id.splashTextView))
                 .setTypeface(Typeface.createFromAsset(getAssets(), "fonts/splash_typeface.ttf"));
         findViewById(R.id.hire).setOnClickListener(this);
+        findViewById(R.id.settings).setOnClickListener(this);
 
     }
 
@@ -26,6 +27,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.hire:{
                 Intent intent  =  new Intent(this, PickUpAndDropOff.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.settings:{
+                Intent intent  =  new Intent(this, Settings.class);
                 startActivity(intent);
                 break;
             }
