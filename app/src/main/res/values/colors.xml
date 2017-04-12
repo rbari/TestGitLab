@@ -10,9 +10,10 @@
     <color name="accent">#FFEB3B</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
-    <color name="icons">#212121</color>
+    <color name="settings_bg">#939393</color>
     <color name="divider">#BDBDBD</color>
     <color name="login_overlay">#64363636</color>
     <color name="login_cardview_bg">#64bababa</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

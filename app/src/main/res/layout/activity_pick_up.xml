@@ -31,10 +31,10 @@
 
                 <ImageView
                     android:id="@+id/backBtn"
-                    android:padding="8dp"
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:src="?attr/homeAsUpIndicator" />
+                    android:padding="8dp"
+                    android:src="@android:drawable/arrow_up_float" />
                 <TextView
                     android:text="test"
                     android:textSize="22sp"

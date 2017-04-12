@@ -29,15 +29,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:background="@color/primary_dark"
+                android:background="@color/settings_bg"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="78dp">
+                android:layout_height="94dp"
+                android:padding="8dp">
                 <com.dhakariders.utils.RoundedImage
                     android:src="@drawable/login_background"
                     android:layout_width="78dp"
                     android:layout_height="78dp" />
                 <LinearLayout
+                    android:layout_marginLeft="8dp"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -54,57 +56,66 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:padding="8dp">
+
                 <ImageView
-                    android:src="@android:drawable/stat_notify_error"
                     android:layout_width="24dp"
-                    android:layout_height="24dp" />
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/stat_notify_error" />
 
                 <TextView
-                    android:textColor="#616161"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="Promotions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="#616161" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:padding="8dp">
+
                 <ImageView
-                    android:src="@android:drawable/stat_notify_error"
                     android:layout_width="24dp"
-                    android:layout_height="24dp" />
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/stat_notify_error" />
 
                 <TextView
-                    android:textColor="#616161"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="Free Rides"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="#616161" />
 
             </LinearLayout>
 
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:padding="8dp">
+
                 <ImageView
-                    android:src="@android:drawable/stat_notify_error"
                     android:layout_width="24dp"
-                    android:layout_height="24dp" />
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/stat_notify_error" />
 
                 <TextView
-                    android:textColor="#616161"
-                    android:text="History"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="History"
+                    android:textColor="#616161" />
 
             </LinearLayout>
 
@@ -117,7 +128,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="8dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -127,6 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="Support"
                     android:textColor="#616161" />
 
@@ -136,7 +149,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="8dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -146,6 +160,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="About"
                     android:textColor="#616161" />
 
@@ -161,7 +176,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="8dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -171,6 +187,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="Log Out"
                     android:textColor="#616161" />
 
