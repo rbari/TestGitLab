@@ -50,9 +50,14 @@
             android:label="@string/title_activity_notification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.Promotions"
-            android:label="@string/title_activity_promotions"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".activity.History"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.Support"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.About"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

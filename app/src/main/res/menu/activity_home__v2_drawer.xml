@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_menu_gallery"
         android:title="Free Rides" />
     <item
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_history"
         android:icon="@drawable/ic_menu_slideshow"
         android:title="History" />
 
@@ -19,11 +19,11 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_support"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Support" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_send"
                 android:title="About" />
         </menu>

@@ -94,12 +94,15 @@ public class Home_V2 extends AppCompatActivity
         } else if (id == R.id.nav_free_ride) {
             FreeRides freeRides = new FreeRides();
             freeRides.show(getSupportFragmentManager(),"Promotions");
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_history) {
+            Intent intent  =  new Intent(this, History.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_support) {
+            Intent intent  =  new Intent(this, Support.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_about) {
+            Intent intent  =  new Intent(this, About.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
