@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.dhakariders.R;
@@ -24,9 +25,9 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/splash_typeface.ttf");
+        /*Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/splash_typeface.ttf");
         splashTextView = (TextView) findViewById(R.id.splashTextView);
-        splashTextView.setTypeface(myTypeface);
+        splashTextView.setTypeface(myTypeface);*/
         splashImageView = findViewById(R.id.splashImageView);
     }
 
@@ -41,11 +42,12 @@ public class Splash extends AppCompatActivity {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int screenWidth = displaymetrics.widthPixels;
-        ObjectAnimator anim = ObjectAnimator.ofFloat(splashImageView, "translationX", -screenWidth, 0);
-        ObjectAnimator anim1 = ObjectAnimator.ofFloat(splashTextView, "translationX", screenWidth, 0);
-        animSetXY.playTogether(anim,anim1);
+        ObjectAnimator anim = ObjectAnimator.ofFloat(splashImageView, "translationX", screenWidth, 0);
+        //ObjectAnimator anim1 = ObjectAnimator.ofFloat(splashTextView, "translationX", screenWidth, 0);
+       // animSetXY.playTogether(anim,anim1);
+        animSetXY.playTogether(anim);
         animSetXY.setDuration(1000);
-        animSetXY.setInterpolator( new AccelerateInterpolator(2f));
+        animSetXY.setInterpolator( new DecelerateInterpolator(2f));
         animSetXY.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -77,7 +79,7 @@ public class Splash extends AppCompatActivity {
             }
         });
         splashImageView.setVisibility(View.VISIBLE);
-        splashTextView.setVisibility(View.VISIBLE);
+      //  splashTextView.setVisibility(View.VISIBLE);
         animSetXY.start();
     }
 

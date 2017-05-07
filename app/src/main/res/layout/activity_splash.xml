@@ -5,39 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_dark"
-    tools:context="com.dhakariders.activity.Splash">
+    tools:context=".activity.Splash">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical"
-       android:layout_centerInParent="true"
-       >
-       <RelativeLayout
-           android:visibility="invisible"
-           android:id="@+id/splashImageView"
-           android:layout_width="match_parent"
-           android:layout_height="200dp">
-           <ImageView
-               android:layout_centerInParent="true"
-               android:layout_width="200dp"
-               android:layout_height="200dp"
-               android:src="@drawable/bike_splash"
-               android:scaleType="centerInside"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        >
+        <RelativeLayout
+            android:visibility="visible"
+            android:id="@+id/splashImageView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/dhaka_riders_slpash"
+                android:scaleType="centerInside"/>
 
-       </RelativeLayout>
+        </RelativeLayout>
 
 
-       <TextView
-           android:visibility="invisible"
-           android:id="@+id/splashTextView"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="Dhaka \n Riders"
-           android:textAlignment="center"
-           android:textColor="@android:color/white"
-           android:textSize="28sp" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/splashTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dhaka \n Riders"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="28sp" />
 
-   </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
