@@ -35,18 +35,21 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:elevation="3dp"
+            android:visibility="visible"
             app:cardBackgroundColor="@color/login_cardview_bg"
             app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/logInTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -63,13 +66,15 @@
 
 
                     <EditText
+                        android:id="@+id/phoneNumberET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="20"
                         android:hint="Phone Number"
                         android:inputType="phone"
                         android:maxLength="14"
-                        android:textSize="17sp">
+                        android:textSize="17sp"
+                        android:textStyle="bold">
 
                     </EditText>
 
@@ -83,6 +88,7 @@
 
 
                     <com.example.rezwan.letsmakeithappen.PasswordEditText
+                        android:id="@+id/passwordET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="20"
@@ -94,6 +100,16 @@
 
 
                 </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/forgetPasswordToolTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="An SMS will be sent to your mobile number with a new password. Please change your password after login"
+                    android:textAlignment="center"
+                    android:textStyle="italic"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/logInButton"
@@ -130,10 +146,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            app:cardBackgroundColor="@color/login_cardview_bg"
-            app:cardCornerRadius="8dp"
             android:elevation="3dp"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/login_cardview_bg"
+            app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,6 +176,7 @@
 
 
                     <EditText
+                        android:id="@+id/signUpNameET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="20"
@@ -180,6 +197,7 @@
 
 
                     <EditText
+                        android:id="@+id/signUpPhoneNumberET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="20"
@@ -195,22 +213,24 @@
 
 
                 <EditText
+                    android:id="@+id/signUpPasswordET_0"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="20"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
 
                 <EditText
+                    android:id="@+id/signUpPasswordET_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="20"
                     android:hint="Retype Password"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
 
 
                 <Button

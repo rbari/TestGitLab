@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.dhakariders.R;
 import com.dhakariders.fragment.FreeRides;
 import com.dhakariders.fragment.Promotions;
+import com.dhakariders.utils.SharedPref;
 
 public class Home_V2 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -103,6 +104,11 @@ public class Home_V2 extends AppCompatActivity
         } else if (id == R.id.nav_about) {
             Intent intent  =  new Intent(this, About.class);
             startActivity(intent);
+        } else if(id == R.id.nav_logOut){
+            SharedPref.setIsLoggedIn(this, false);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

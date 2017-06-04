@@ -15,11 +15,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.dhakariders.R;
+import com.dhakariders.utils.SharedPref;
 
 public class Splash extends AppCompatActivity {
 
     private TextView splashTextView;
     private View splashImageView;
+    private boolean appIsVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class Splash extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         show();
+        appIsVisible =  true;
     }
 
     public void show() {
@@ -56,16 +59,23 @@ public class Splash extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent i = new Intent(Splash.this, LoginActivity.class);
-                        startActivity(i);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
+                if(appIsVisible) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(SharedPref.isLoggedIn(Splash.this)){
+                                Intent intent =  new Intent(Splash.this, Home_V2.class);
+                                startActivity(intent);
+                            }else{
+                                Intent i = new Intent(Splash.this, LoginActivity.class);
+                                startActivity(i);
+                            }
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            finish();
 
-                    }
-                }, 200);
+                        }
+                    }, 200);
+                }
             }
 
             @Override
@@ -83,5 +93,9 @@ public class Splash extends AppCompatActivity {
         animSetXY.start();
     }
 
-
+    @Override
+    protected void onPause() {
+        appIsVisible = false;
+        super.onPause();
+    }
 }
