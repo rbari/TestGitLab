@@ -2,6 +2,7 @@ package com.dhakariders.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.dhakariders.R;
 import com.dhakariders.fragment.FreeRides;
@@ -21,6 +23,9 @@ import com.dhakariders.utils.SharedPref;
 
 public class Home_V2 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ImageView preview;
+    private int[] images = {R.drawable.preview_01, R.drawable.preview_02, R.drawable.preview_03, R.drawable.preview_04, R.drawable.preview_05};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,49 @@ public class Home_V2 extends AppCompatActivity
                 startActivity(intent);
             }
         });
+        preview = (ImageView)findViewById(R.id.previewImage);
+    }
+
+    Handler pictureChanger;
+    boolean isActive;
+    int index = 0;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isActive = true;
+        if(pictureChanger == null){
+            pictureChanger = new Handler();
+        }
+        pictureChanger.postDelayed(runnable, 5000);
+    }
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(isActive && preview != null){
+                        index++;
+                        if(index == 5){
+                            index = 0;
+                        }
+                        preview.setImageResource(images[index]);
+                        pictureChanger.postDelayed(this, 5000);
+                    }
+                }
+            });
+        }
+    };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isActive = false;
+        if(pictureChanger != null){
+            pictureChanger.removeCallbacksAndMessages(null);
+        }
     }
 
     @Override

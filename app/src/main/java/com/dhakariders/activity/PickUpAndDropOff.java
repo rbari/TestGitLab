@@ -2,6 +2,8 @@ package com.dhakariders.activity;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -67,6 +69,7 @@ import java.util.List;
 public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
 
+    private static final int PERMISSION_LOCATION_REQUEST_CODE = 999;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -106,6 +109,38 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_up);
+        checkPermission();
+    }
+
+    private void checkPermission() {
+        Boolean permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (!permission) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSION_LOCATION_REQUEST_CODE);
+        }else{
+            init();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_LOCATION_REQUEST_CODE) {
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Location permission was not granted", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+            init();
+        }
+    }
+
+
+    private void init() {
         orderBtn = (Button) findViewById(R.id.setLocation);
         orderBtn.setTag(PICKUP_STATE);
         orderBtn.setOnClickListener(new View.OnClickListener() {
@@ -121,8 +156,8 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                     ((Button) v).setText("Set Your Drop Off");
                     onConnected(null);
                 }*/
-                switch ((int)v.getTag()){
-                    case PICKUP_STATE:{
+                switch ((int) v.getTag()) {
+                    case PICKUP_STATE: {
                         v.setTag(DROPOFF_STATE);
                         fromLatLong = mCenterLatLong;
                         orderBtn.setText("Set Your Drop Off");
@@ -130,7 +165,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                         updateToolbarTitle();
                         break;
                     }
-                    case DROPOFF_STATE:{
+                    case DROPOFF_STATE: {
                         v.setTag(ORDER_STATE);
                         orderBtn.setText("Confirm Order");
                         toLatLong = mCenterLatLong;
@@ -139,7 +174,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                         updateToolbarTitle();
                         break;
                     }
-                    case ORDER_STATE:{
+                    case ORDER_STATE: {
                         break;
                     }
                 }
@@ -150,9 +185,9 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((int)orderBtn.getTag() == PICKUP_STATE){
+                if ((int) orderBtn.getTag() == PICKUP_STATE) {
                     finish();
-                }else{
+                } else {
                     orderBtn.setTag(PICKUP_STATE);
                     orderBtn.setText("Set Your Pick Up");
                     updateToolbarTitle();
@@ -221,20 +256,20 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-    private void updateToolbarTitle(){
-        if(toolBarTitle == null) {
+    private void updateToolbarTitle() {
+        if (toolBarTitle == null) {
             toolBarTitle = (TextView) findViewById(R.id.tbTitle);
         }
-        switch ((int)orderBtn.getTag()){
-            case PICKUP_STATE:{
+        switch ((int) orderBtn.getTag()) {
+            case PICKUP_STATE: {
                 toolBarTitle.setText("Set Pick Point");
                 break;
             }
-            case DROPOFF_STATE:{
+            case DROPOFF_STATE: {
                 toolBarTitle.setText("Set Drop Off Point");
                 break;
             }
-            case ORDER_STATE:{
+            case ORDER_STATE: {
                 toolBarTitle.setText("Confirm Order");
                 break;
             }
@@ -454,42 +489,42 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
     }
 
 
+/**
+ * Receiver for data sent from FetchAddressIntentService.
+ */
+class AddressResultReceiver extends ResultReceiver {
+    public AddressResultReceiver(Handler handler) {
+        super(handler);
+    }
+
     /**
-     * Receiver for data sent from FetchAddressIntentService.
+     * Receives data sent from FetchAddressIntentService and updates the UI in MainActivity.
      */
-    class AddressResultReceiver extends ResultReceiver {
-        public AddressResultReceiver(Handler handler) {
-            super(handler);
-        }
+    @Override
+    protected void onReceiveResult(int resultCode, Bundle resultData) {
+        Log.wtf(TAG, "resultCode: " + resultCode + " resultData: " + AppUtils.bundleToString(resultData));
 
-        /**
-         * Receives data sent from FetchAddressIntentService and updates the UI in MainActivity.
-         */
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            Log.wtf(TAG, "resultCode: " + resultCode + " resultData: " + AppUtils.bundleToString(resultData));
-
-            // Display the address string or an error message sent from the intent service.
-            mAddressOutput = resultData.getString(AppUtils.LocationConstants.RESULT_DATA_KEY);
+        // Display the address string or an error message sent from the intent service.
+        mAddressOutput = resultData.getString(AppUtils.LocationConstants.RESULT_DATA_KEY);
 
 
-            mCityOutput = resultData.getString(AppUtils.LocationConstants.LOCATION_DATA_CITY);
-            mAreaOutput = resultData.getString(AppUtils.LocationConstants.LOCATION_DATA_AREA);
-            mStreetOutput = resultData.getString(AppUtils.LocationConstants.LOCATION_DATA_STREET);
+        mCityOutput = resultData.getString(AppUtils.LocationConstants.LOCATION_DATA_CITY);
+        mAreaOutput = resultData.getString(AppUtils.LocationConstants.LOCATION_DATA_AREA);
+        mStreetOutput = resultData.getString(AppUtils.LocationConstants.LOCATION_DATA_STREET);
 
-            displayAddressOutput();
+        displayAddressOutput();
 
-            // Show a toast message if an address was found.
-            if (resultCode == AppUtils.LocationConstants.SUCCESS_RESULT) {
-                //  showToast(getString(R.string.address_found));
-
-
-            }
+        // Show a toast message if an address was found.
+        if (resultCode == AppUtils.LocationConstants.SUCCESS_RESULT) {
+            //  showToast(getString(R.string.address_found));
 
 
         }
+
 
     }
+
+}
 
     /**
      * Updates the address in the UI.
@@ -668,111 +703,111 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         return data;
     }
 
-    private class DownloadTask extends AsyncTask<String, Void, String> {
+private class DownloadTask extends AsyncTask<String, Void, String> {
 
-        // Downloading data in non-ui thread
-        @Override
-        protected String doInBackground(String... url) {
+    // Downloading data in non-ui thread
+    @Override
+    protected String doInBackground(String... url) {
 
-            // For storing data from web service
-            String data = "";
+        // For storing data from web service
+        String data = "";
 
-            try {
-                // Fetching the data from web service
-                data = downloadUrl(url[0]);
-            } catch (Exception e) {
-                Log.d("Background Task", e.toString());
-            }
-            return data;
+        try {
+            // Fetching the data from web service
+            data = downloadUrl(url[0]);
+        } catch (Exception e) {
+            Log.d("Background Task", e.toString());
         }
-
-        // Executes in UI thread, after the execution of
-        // doInBackground()
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            ParserTask parserTask = new ParserTask();
-
-            // Invokes the thread for parsing the JSON data
-            parserTask.execute(result);
-        }
+        return data;
     }
 
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+    // Executes in UI thread, after the execution of
+    // doInBackground()
+    @Override
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
 
-        // Parsing the data in non-ui thread
-        @Override
-        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+        ParserTask parserTask = new ParserTask();
 
-            JSONObject jObject;
-            List<List<HashMap<String, String>>> routes = null;
+        // Invokes the thread for parsing the JSON data
+        parserTask.execute(result);
+    }
+}
 
-            try {
-                jObject = new JSONObject(jsonData[0]);
-                DirectionsJSONParser parser = new DirectionsJSONParser();
+private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
-                // Starts parsing data
-                routes = parser.parse(jObject);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return routes;
+    // Parsing the data in non-ui thread
+    @Override
+    protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+
+        JSONObject jObject;
+        List<List<HashMap<String, String>>> routes = null;
+
+        try {
+            jObject = new JSONObject(jsonData[0]);
+            DirectionsJSONParser parser = new DirectionsJSONParser();
+
+            // Starts parsing data
+            routes = parser.parse(jObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return routes;
+    }
+
+    // Executes in UI thread, after the parsing process
+    @Override
+    protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+        ArrayList<LatLng> points = null;
+        PolylineOptions lineOptions = null;
+        MarkerOptions markerOptions = new MarkerOptions();
+        String distance = "";
+        String duration = "";
+
+        if (result.size() < 1) {
+            Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        // Executes in UI thread, after the parsing process
-        @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-            ArrayList<LatLng> points = null;
-            PolylineOptions lineOptions = null;
-            MarkerOptions markerOptions = new MarkerOptions();
-            String distance = "";
-            String duration = "";
+        // Traversing through all the routes
+        for (int i = 0; i < result.size(); i++) {
+            points = new ArrayList<LatLng>();
+            lineOptions = new PolylineOptions();
 
-            if (result.size() < 1) {
-                Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            // Fetching i-th route
+            List<HashMap<String, String>> path = result.get(i);
 
-            // Traversing through all the routes
-            for (int i = 0; i < result.size(); i++) {
-                points = new ArrayList<LatLng>();
-                lineOptions = new PolylineOptions();
+            // Fetching all the points in i-th route
+            for (int j = 0; j < path.size(); j++) {
+                HashMap<String, String> point = path.get(j);
 
-                // Fetching i-th route
-                List<HashMap<String, String>> path = result.get(i);
-
-                // Fetching all the points in i-th route
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
-
-                    if (j == 0) {    // Get distance from the list
-                        distance = (String) point.get("distance");
-                        continue;
-                    } else if (j == 1) { // Get duration from the list
-                        duration = (String) point.get("duration");
-                        continue;
-                    }
-
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
-
-                    points.add(position);
+                if (j == 0) {    // Get distance from the list
+                    distance = (String) point.get("distance");
+                    continue;
+                } else if (j == 1) { // Get duration from the list
+                    duration = (String) point.get("duration");
+                    continue;
                 }
 
-                // Adding all the points in the route to LineOptions
-                lineOptions.addAll(points);
-                lineOptions.width(4);
-                lineOptions.color(Color.BLUE);
+                double lat = Double.parseDouble(point.get("lat"));
+                double lng = Double.parseDouble(point.get("lng"));
+                LatLng position = new LatLng(lat, lng);
+
+                points.add(position);
             }
 
-            Log.wtf(TAG, "Distance:" + distance + ", Duration:" + duration);
-
-            // Drawing polyline in the Google Map for the i-th route
-            mMap.addPolyline(lineOptions);
+            // Adding all the points in the route to LineOptions
+            lineOptions.addAll(points);
+            lineOptions.width(4);
+            lineOptions.color(Color.BLUE);
         }
 
+        Log.wtf(TAG, "Distance:" + distance + ", Duration:" + duration);
 
+        // Drawing polyline in the Google Map for the i-th route
+        mMap.addPolyline(lineOptions);
     }
+
+
+}
 }

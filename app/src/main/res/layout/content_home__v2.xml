@@ -200,13 +200,15 @@
     </LinearLayout>
 
     <FrameLayout
+        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <ImageView
+            android:id="@+id/previewImage"
             android:scaleType="centerCrop"
-            android:src="@drawable/login_background"
+            android:src="@drawable/preview_01"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <View

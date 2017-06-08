@@ -17,6 +17,10 @@ import android.widget.TextView;
 import com.dhakariders.R;
 import com.dhakariders.utils.SharedPref;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Splash extends AppCompatActivity {
 
     private TextView splashTextView;
@@ -63,6 +67,18 @@ public class Splash extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+
+                            try {
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                Date date = sdf.parse("15/6/2017");
+                                if (System.currentTimeMillis() > date.getTime()) {
+                                    Intent intent =  new Intent(Splash.this, Trial.class);
+                                    startActivity(intent);
+                                    return;
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                             if(SharedPref.isLoggedIn(Splash.this)){
                                 Intent intent =  new Intent(Splash.this, Home_V2.class);
                                 startActivity(intent);
