@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dhakariders.activity.Settings">
+    tools:context=".customer.activity.Settings">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="94dp"
                 android:padding="8dp">
-                <com.dhakariders.utils.RoundedImage
+                <com.dhakariders.customer.utils.RoundedImage
                     android:src="@drawable/login_background"
                     android:layout_width="78dp"
                     android:layout_height="78dp" />

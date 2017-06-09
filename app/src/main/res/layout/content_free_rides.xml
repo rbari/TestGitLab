@@ -10,7 +10,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <android.support.v7.widget.CardView
-        app:cardCornerRadius="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@color/background_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -32,7 +33,7 @@
                 android:text="Free Rides"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/foreground_color"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -45,7 +46,7 @@
                 android:paddingLeft="24dp"
                 android:text="Share Dhaka Rides among your friends. Tell them to download and enter your code in promotions.You and your friends both gets 100tk off from the first 3 rides"
                 android:textAlignment="center"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/gray"
                 android:textSize="12sp"
                 android:textStyle="italic" />
 
@@ -58,6 +59,7 @@
                 android:background="@drawable/promo_et_bg"
                 android:padding="8dp"
                 android:text="FGRe3"
+                android:textColor="@color/background_color"
                 android:inputType="none"
                 android:textIsSelectable="true"
                 android:textAlignment="center" />
@@ -72,9 +74,9 @@
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@color/background_color"
                     android:text="Close"
-                    android:textColor="@color/secondary_text" />
+                    android:textColor="@color/gray" />
 
                 <Button
                     android:layout_weight="1"
@@ -82,9 +84,9 @@
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@color/background_color"
                     android:text="Share"
-                    android:textColor="@color/secondary_text" />
+                    android:textColor="@color/gray" />
             </LinearLayout>
 
 

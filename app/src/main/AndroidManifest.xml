@@ -20,7 +20,7 @@
             android:value="AIzaSyCoQqv8wm0wRXZ6-j3vXK5oL4GQrC6D7U8" />
 
         <activity
-            android:name=".activity.Splash"
+            android:name=".customer.activity.Splash"
             android:theme="@style/Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,38 +29,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".customer.activity.LoginSignUpActivity"
             android:theme="@style/LogIn"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.Home" />
-        <activity android:name=".activity.PickUpAndDropOff" />
+        <activity android:name=".customer.activity.PickUpAndDropOff" />
 
         <service
-            android:name=".service.FetchAddressIntentService"
+            android:name=".customer.service.FetchAddressIntentService"
             android:exported="false" />
 
         <activity
-            android:name=".activity.Settings"
+            android:name=".customer.activity.Settings"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.Home_V2"
+            android:name=".customer.activity.Home"
             android:label="@string/title_activity_home__v2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.Notification"
+            android:name=".customer.activity.Notification"
             android:label="@string/title_activity_notification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.History"
+            android:name=".customer.activity.History"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.Support"
+            android:name=".customer.activity.Support"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.About"
+            android:name=".customer.activity.About"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.Trial"></activity>
+        <activity android:name=".customer.activity.Trial"></activity>
     </application>
 
 </manifest>

@@ -3,16 +3,16 @@
 
     <style name="Translucent" parent="AppTheme.NoActionBar">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/primary_dark</item>
+        <item name="android:windowBackground">@color/background_color</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
 
     </style>
-    <style name="LogIn" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/black</item>
+<!--    <style name="LogIn" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/background_color</item>
+        <item name="colorPrimaryDark">@color/background_color</item>
+        <item name="colorAccent">@color/foreground_color</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
 
@@ -22,7 +22,7 @@
         <item name="colorControlNormal">@color/black</item>
         <item name="colorControlActivated">@color/black</item>
 
-    </style>
+    </style>-->
 
 
 

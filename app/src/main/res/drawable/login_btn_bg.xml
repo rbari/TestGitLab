@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/login_cardview_bg"/>
+    <solid android:color="@color/foreground_color"/>
     <stroke android:width="2dip" android:color="@color/black" />
     <corners android:radius="24dp"/>
     <padding android:left="0dip" android:top="0dip" android:right="0dip" android:bottom="0dip" />
