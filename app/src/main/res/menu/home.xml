@@ -5,6 +5,6 @@
         android:id="@+id/action_notification"
         android:orderInCategory="100"
         android:title="Notification"
-        android:icon="@drawable/ic_noti"
+        android:icon="@drawable/ic_noti_y"
         app:showAsAction="always" />
 </menu>

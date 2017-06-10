@@ -18,8 +18,10 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="gray">#bdbdbd</color>
+    <color name="white_alpha">#5affffff</color>
 
     <color name="background_color">#343434</color>
+    <color name="background_color_highlight">#2e2e2e</color>
   <!--  <color name="foreground_color">#ffcf07</color>-->
     <color name="foreground_color">#ffdd1c</color>
 </resources>
