@@ -41,279 +41,269 @@
             android:textSize="18sp"
             android:textStyle="bold|italic" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
-
-                <LinearLayout
-                    android:id="@+id/homeUserProBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/home_btn_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_profile_y" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="User"
-                            android:textAlignment="center"
-                            android:textColor="@color/foreground_color"
-                            android:textSize="9sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="Profile"
-                            android:textAlignment="center"
-                            android:textColor="@color/foreground_color"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/homePromoBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/home_btn_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_offer_y" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="Promo"
-                            android:textAlignment="center"
-                            android:textColor="@color/foreground_color"
-                            android:textSize="9sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="Code     "
-                            android:textAlignment="center"
-                            android:textColor="@color/foreground_color"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- <LinearLayout
-                     android:id="@+id/homeHistoryBtn"
-                     android:layout_width="0dp"
-                     android:layout_height="match_parent"
-                     android:layout_marginBottom="4dp"
-                     android:layout_marginLeft="4dp"
-                     android:layout_marginRight="2dp"
-                     android:layout_marginTop="4dp"
-                     android:layout_weight="1"
-                     android:background="@drawable/home_btn_bg"
-                     android:gravity="center"
-                     android:orientation="horizontal"
-                     android:padding="8dp">
-
-
-                     <ImageView
-                         android:layout_width="24dp"
-                         android:layout_height="24dp"
-                         android:layout_gravity="center_vertical"
-                         android:scaleType="centerInside"
-                         android:src="@drawable/ic_history_y" />
-
-                     <LinearLayout
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:orientation="vertical">
-
-                         <TextView
-                             android:layout_width="wrap_content"
-                             android:layout_height="match_parent"
-                             android:gravity="center_vertical"
-                             android:paddingLeft="8dp"
-                             android:text="Ride"
-                             android:textAlignment="center"
-                             android:textColor="@color/foreground_color"
-                             android:textSize="9sp"
-                             android:textStyle="bold" />
-
-                         <TextView
-                             android:layout_width="wrap_content"
-                             android:layout_height="match_parent"
-                             android:gravity="center_vertical"
-                             android:paddingLeft="8dp"
-                             android:text="History"
-                             android:textAlignment="center"
-                             android:textColor="@color/foreground_color"
-                             android:textSize="12sp"
-                             android:textStyle="bold" />
-
-                     </LinearLayout>
-                 </LinearLayout>-->
-
-                <LinearLayout
-                    android:id="@+id/homeSupportBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/home_btn_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_support_y" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="Get"
-                            android:textAlignment="center"
-                            android:textColor="@color/foreground_color"
-                            android:textSize="9sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="Support"
-                            android:textAlignment="center"
-                            android:textColor="@color/foreground_color"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="13dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="13dp">
-
-                <LinearLayout
-                    android:id="@+id/hireRide"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/home_btn_bg"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_bike_y" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="8dp"
-                        android:text="Hire a ride"
-                        android:textColor="@color/foreground_color"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-
-                </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-
 
     </RelativeLayout>
 
 
-    <!--  <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="56dp"
-          android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/background_color_highlight"
+        android:paddingTop="19dp">
 
 
-      </LinearLayout>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
 
+            <LinearLayout
+                android:id="@+id/homeUserProBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_btn_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_profile_y" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="User"
+                        android:textAlignment="center"
+                        android:textColor="@color/foreground_color"
+                        android:textSize="9sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="Profile"
+                        android:textAlignment="center"
+                        android:textColor="@color/foreground_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/homePromoBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_btn_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_offer_y" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="Promo"
+                        android:textAlignment="center"
+                        android:textColor="@color/foreground_color"
+                        android:textSize="9sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="Code     "
+                        android:textAlignment="center"
+                        android:textColor="@color/foreground_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- <LinearLayout
+                 android:id="@+id/homeHistoryBtn"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_marginBottom="4dp"
+                 android:layout_marginLeft="4dp"
+                 android:layout_marginRight="2dp"
+                 android:layout_marginTop="4dp"
+                 android:layout_weight="1"
+                 android:background="@drawable/home_btn_bg"
+                 android:gravity="center"
+                 android:orientation="horizontal"
+                 android:padding="8dp">
+
+
+                 <ImageView
+                     android:layout_width="24dp"
+                     android:layout_height="24dp"
+                     android:layout_gravity="center_vertical"
+                     android:scaleType="centerInside"
+                     android:src="@drawable/ic_history_y" />
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:orientation="vertical">
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:gravity="center_vertical"
+                         android:paddingLeft="8dp"
+                         android:text="Ride"
+                         android:textAlignment="center"
+                         android:textColor="@color/foreground_color"
+                         android:textSize="9sp"
+                         android:textStyle="bold" />
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:gravity="center_vertical"
+                         android:paddingLeft="8dp"
+                         android:text="History"
+                         android:textAlignment="center"
+                         android:textColor="@color/foreground_color"
+                         android:textSize="12sp"
+                         android:textStyle="bold" />
+
+                 </LinearLayout>
+             </LinearLayout>-->
+
+            <LinearLayout
+                android:id="@+id/homeSupportBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_btn_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_support_y" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="Get"
+                        android:textAlignment="center"
+                        android:textColor="@color/foreground_color"
+                        android:textSize="9sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="Support"
+                        android:textAlignment="center"
+                        android:textColor="@color/foreground_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="13dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="13dp">
+
+            <LinearLayout
+                android:id="@+id/hireRide"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/home_btn_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_bike_y" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="Hire a ride"
+                    android:textColor="@color/foreground_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 
 
 
