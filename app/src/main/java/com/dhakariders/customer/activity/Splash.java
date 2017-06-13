@@ -13,6 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.dhakariders.R;
+import com.dhakariders.customer.fragment.Order;
 import com.dhakariders.customer.utils.SharedPref;
 
 import java.text.ParseException;
@@ -78,7 +79,7 @@ public class Splash extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             if(SharedPref.isLoggedIn(Splash.this)){
-                                Intent intent =  new Intent(Splash.this, Home.class);
+                                Intent intent =  new Intent(Splash.this, OrderDetails.class);
                                 startActivity(intent);
                             }else{
                                 Intent i = new Intent(Splash.this, LoginSignUpActivity.class);

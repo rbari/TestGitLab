@@ -1,6 +1,8 @@
 package com.dhakariders.customer.activity;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +31,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dhakariders.R;
+import com.dhakariders.customer.fragment.Order;
+import com.dhakariders.customer.fragment.Promotions;
 import com.dhakariders.customer.service.FetchAddressIntentService;
 import com.dhakariders.customer.utils.AppUtils;
 import com.dhakariders.customer.utils.DirectionsJSONParser;
+import com.dhakariders.customer.utils.SharedPref;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -51,7 +57,10 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.softwaremobility.network.Connection;
+import com.softwaremobility.simplehttp.NetworkConnection;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -63,12 +72,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
 
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 999;
+    //private final static String baseURL = "http://ec2-52-36-4-117.us-west-2.compute.amazonaws.com/api/v1/session";
+    private final static String baseURL = "http://192.168.21.101:9000/api/v1/order";
+
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -98,10 +111,14 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
     Toolbar mToolbar;
 
     private static final int PICKUP_STATE = 0;
-    private static final int DROPOFF_STATE = 1;
+    private static final int DROP_OFF_STATE = 1;
     private static final int ORDER_STATE = 2;
-    private TextView toolBarTitle;
     private Button orderBtn;
+    private PolylineOptions lineOptions;
+    private String sessionID;
+    private ProgressDialog pd;
+    private String distance;
+    private String duration;
 
 
     @Override
@@ -145,26 +162,16 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (v.getTag() != null && (int) v.getTag() == 1) {
-                    toLatLong = mCenterLatLong;
-                    DownloadTask downloadTask = new DownloadTask();
-                    downloadTask.execute(getDirectionsUrl(fromLatLong, toLatLong));
-                } else {
-                    v.setTag(1);
-                    fromLatLong = mCenterLatLong;
-                    ((Button) v).setText("Set Your Drop Off");
-                    onConnected(null);
-                }*/
                 switch ((int) v.getTag()) {
                     case PICKUP_STATE: {
-                        v.setTag(DROPOFF_STATE);
+                        v.setTag(DROP_OFF_STATE);
                         fromLatLong = mCenterLatLong;
                         orderBtn.setText("Set Your Drop Off");
                         onConnected(null);
                         updateToolbarTitle();
                         break;
                     }
-                    case DROPOFF_STATE: {
+                    case DROP_OFF_STATE: {
                         v.setTag(ORDER_STATE);
                         orderBtn.setText("Confirm Order");
                         toLatLong = mCenterLatLong;
@@ -174,26 +181,14 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                         break;
                     }
                     case ORDER_STATE: {
+                        placeAnOrder();
                         break;
                     }
                 }
             }
         });
-        updateToolbarTitle();
 
-        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((int) orderBtn.getTag() == PICKUP_STATE) {
-                    finish();
-                } else {
-                    orderBtn.setTag(PICKUP_STATE);
-                    orderBtn.setText("Set Your Pick Up");
-                    updateToolbarTitle();
-                    onConnected(null);
-                }
-            }
-        });
+
 
 
         mContext = this;
@@ -206,11 +201,11 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         mLocationText = (ImageView) findViewById(R.id.Locality);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-       /* getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));*/
-
-
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.foreground_color));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Pick Up");
+        updateToolbarTitle();
         mLocationText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -252,24 +247,123 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         } else {
             Toast.makeText(mContext, "Location not supported in this device", Toast.LENGTH_SHORT).show();
         }
+        sessionID = SharedPref.getSessionId(this);
+        pd = new ProgressDialog(this, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        pd.setMessage("REQUESTING");
+        pd.setCancelable(false);
+    }
+
+    private void placeAnOrder() {
+        pd.show();
+
+        NetworkConnection.testPath(baseURL);
+        NetworkConnection.productionPath(baseURL);
+        Map<String, String> params = new HashMap<>();
+        params.put("action", "0");
+        params.put("session_id", sessionID);
+      /*  params.put("s_lat", String.valueOf(fromLatLong.latitude));
+        params.put("s_lon", String.valueOf(fromLatLong.longitude));
+        params.put("e_lat", String.valueOf(toLatLong.latitude));
+        params.put("e_lon", String.valueOf(toLatLong.longitude));*/
+
+        params.put("s_lat", "29.000056");
+        params.put("s_lon", "29.000005");
+        params.put("e_lat", "32.012456");
+        params.put("e_lon", "33.957374");
+        params.put("dist", "40");
+
+        params.put("dist", distance);
+
+        NetworkConnection.with(this).withListener(new NetworkConnection.ResponseListener() {
+            @Override
+            public void onSuccessfullyResponse(String response) {
+                Log.wtf(TAG, response);
+                pd.dismiss();
+                try {
+                    final JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optBoolean("success")) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Order.json = jsonObject;
+                                Order order = new Order();
+                                order.show(getSupportFragmentManager(),"Order");
+                            }
+                        });
+                    }else{
+                        final String message = jsonObject.optString("message", "Please try again");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                new android.support.v7.app.AlertDialog.Builder(PickUpAndDropOff.this)
+                                        .setTitle("ERROR!")
+                                        .setMessage(message)
+                                        .setPositiveButton("OK", null)
+                                        .show();
+                                reset();
+                            }
+                        });
+                    }
+
+                } catch (JSONException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            reset();
+                        }
+                    });
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onErrorResponse(String error, String message, int code) {
+                Log.w(TAG, error + "  " + message + " " + code);
+                pd.dismiss();
+            }
+        }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
+    }
+
+    private void reset(){
+        if(pd != null) {
+            pd.dismiss();
+        }
+        orderBtn.setTag(PICKUP_STATE);
+        orderBtn.setText("Set Your Pick Up");
+        updateToolbarTitle();
+        onConnected(null);
 
     }
 
-    private void updateToolbarTitle() {
-        if (toolBarTitle == null) {
-            toolBarTitle = (TextView) findViewById(R.id.tbTitle);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if ((int) orderBtn.getTag() == PICKUP_STATE) {
+                    finish();
+                } else {
+                    orderBtn.setTag(PICKUP_STATE);
+                    orderBtn.setText("Set Your Pick Up");
+                    updateToolbarTitle();
+                    onConnected(null);
+                }
+                break;
         }
+        return true;
+    }
+
+    private void updateToolbarTitle() {
         switch ((int) orderBtn.getTag()) {
             case PICKUP_STATE: {
-                toolBarTitle.setText("Set Pick Point");
+                getSupportActionBar().setTitle("Set Pick Point");
                 break;
             }
-            case DROPOFF_STATE: {
-                toolBarTitle.setText("Set Drop Off Point");
+            case DROP_OFF_STATE: {
+                getSupportActionBar().setTitle("Set Drop Off Point");
                 break;
             }
             case ORDER_STATE: {
-                toolBarTitle.setText("Confirm Order");
+                getSupportActionBar().setTitle("Confirm Order");
                 break;
             }
         }
@@ -296,8 +390,10 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                 Log.d("Camera postion change" + "", cameraPosition + "");
                 mCenterLatLong = cameraPosition.target;
 
-
-                mMap.clear();
+                if(orderBtn == null || (int)orderBtn.getTag() != ORDER_STATE){
+                    mMap.clear();
+                }
+                //mMap.clear();
 
                 try {
 
@@ -306,7 +402,13 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                     mLocation.setLongitude(mCenterLatLong.longitude);
 
                     startIntentService(mLocation);
-                    mLocationMarkerText.setText("Lat : " + mCenterLatLong.latitude + "," + "Long : " + mCenterLatLong.longitude);
+                    if(orderBtn == null  || (int)orderBtn.getTag() == PICKUP_STATE){
+                        mLocationMarkerText.setText("Pick Up");
+                    }
+                    if(orderBtn != null && (int)orderBtn.getTag() == DROP_OFF_STATE){
+                        mLocationMarkerText.setText("Drop Off");
+                    }
+                    //mLocationMarkerText.setText("Lat : " + mCenterLatLong.latitude + "," + "Long : " + mCenterLatLong.longitude);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -475,7 +577,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
             mMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
 
-            mLocationMarkerText.setText("Lat : " + location.getLatitude() + "," + "Long : " + location.getLongitude());
+            //mLocationMarkerText.setText("Lat : " + location.getLatitude() + "," + "Long : " + location.getLongitude());
             startIntentService(location);
 
 
@@ -758,10 +860,10 @@ private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<St
     @Override
     protected void onPostExecute(List<List<HashMap<String, String>>> result) {
         ArrayList<LatLng> points = null;
-        PolylineOptions lineOptions = null;
+        lineOptions = null;
         MarkerOptions markerOptions = new MarkerOptions();
-        String distance = "";
-        String duration = "";
+        distance = null;
+        duration = null;
 
         if (result.size() < 1) {
             Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
@@ -781,10 +883,10 @@ private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<St
                 HashMap<String, String> point = path.get(j);
 
                 if (j == 0) {    // Get distance from the list
-                    distance = (String) point.get("distance");
+                    distance =  point.get("distance");
                     continue;
                 } else if (j == 1) { // Get duration from the list
-                    duration = (String) point.get("duration");
+                    duration =  point.get("duration");
                     continue;
                 }
 
@@ -797,11 +899,13 @@ private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<St
 
             // Adding all the points in the route to LineOptions
             lineOptions.addAll(points);
-            lineOptions.width(4);
-            lineOptions.color(Color.BLUE);
+            lineOptions.width(14);
+            lineOptions.color(getResources().getColor(R.color.foreground_color));
         }
 
         Log.wtf(TAG, "Distance:" + distance + ", Duration:" + duration);
+        distance = distance.replace("km", "").trim();
+
 
         // Drawing polyline in the Google Map for the i-th route
         mMap.addPolyline(lineOptions);

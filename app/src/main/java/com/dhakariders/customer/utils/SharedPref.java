@@ -65,4 +65,37 @@ public class SharedPref {
         editor.putString(SharedPref.sessionId, sessionId);
         editor.apply();
     }
+
+
+    private static final String isOrderActive = "IS_ORDER_ACTIVE";
+    public static void setHasAnActiveOrder(Context context, boolean hasAnActiveOrder){
+        SharedPreferences.Editor editor  =  Editor(context);
+        editor.putBoolean(SharedPref.isOrderActive, hasAnActiveOrder);
+        editor.apply();
+    }
+    public static boolean isOrderActive(Context context){
+        return SharedPref(context).getBoolean(isOrderActive, false);
+    }
+
+
+    private static final String orderID = "ORDER_ID";
+    public static String getOrderID(Context context){
+        return SharedPref(context).getString(orderID, "NULL");
+    }
+    public static void setOrderID(Context context, String orderID){
+        SharedPreferences.Editor editor  =  Editor(context);
+        editor.putString(SharedPref.orderID, orderID);
+        editor.apply();
+    }
+
+    private static final String driverDetails = "DRIVER_DETAILS";
+    public static void setDriverDetails(Context context, String driverDetails){
+        SharedPreferences.Editor editor  =  Editor(context);
+        editor.putString(SharedPref.driverDetails, driverDetails);
+        editor.apply();
+    }
+    public static String getDriverDetails(Context context){
+        return SharedPref(context).getString(driverDetails, "NULL");
+    }
+
 }

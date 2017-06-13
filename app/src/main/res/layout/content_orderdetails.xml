@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
+    android:background="@color/background_color">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <pl.bclogic.pulsator4droid.library.PulsatorLayout
+            android:id="@+id/pulsator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:pulse_count="4"
+            app:pulse_duration="7000"
+            app:pulse_repeat="0"
+            app:pulse_color="@color/foreground_color"
+            app:pulse_startFromScratch="false"
+            app:pulse_interpolator="Linear">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/bike_order"/>
+        </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/home_btn_bg_2"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="Status - Driver Coming"
+            android:textColor="@color/background_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home_btn_bg_2"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="This is a message that will be shown here"
+            android:textColor="@color/background_color"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

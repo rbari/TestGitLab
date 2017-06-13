@@ -13,9 +13,11 @@ public class Support extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.foreground_color));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Support");
     }
 
     @Override

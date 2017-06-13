@@ -29,6 +29,8 @@ import java.util.Map;
 public class LoginSignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final static String TAG = "LoginSignUpActivity";
+    //private final static String baseURL = "http://ec2-52-36-4-117.us-west-2.compute.amazonaws.com/api/v1/session";
+    private final static String baseURL = "http://192.168.21.101:9000/api/v1/session";
 
     private View logInCardView, signUpCardView;
     private boolean isInForgetPassword;
@@ -44,6 +46,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
             signUpPasswordET_1;
     private Button logInBtn;
     private ProgressDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +122,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(this, "Please provide a valid bangladeshi 11 digits mobile number without country code", Toast.LENGTH_LONG).show();
             return;
         }
-        String baseURL = "http://ec2-52-36-4-117.us-west-2.compute.amazonaws.com/api/v1/session";
+
         NetworkConnection.testPath(baseURL);
         NetworkConnection.productionPath(baseURL);
         Map<String, String> params = new HashMap<>();
@@ -180,7 +183,6 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(this, "Both password did not match", Toast.LENGTH_LONG).show();
             return;
         }
-        String baseURL = "http://ec2-52-36-4-117.us-west-2.compute.amazonaws.com/api/v1/session";
         NetworkConnection.testPath(baseURL);
         NetworkConnection.productionPath(baseURL);
         Map<String, String> params = new HashMap<>();
@@ -188,6 +190,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
         params.put("name", userName);
         params.put("phone_number", phoneNumber);
         params.put("password", password_0);
+        params.put("type", "0");
 
         NetworkConnection.with(this).withListener(new NetworkConnection.ResponseListener() {
             @Override
@@ -252,13 +255,13 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        String baseURL = "http://ec2-52-36-4-117.us-west-2.compute.amazonaws.com/api/v1/session";
         NetworkConnection.testPath(baseURL);
         NetworkConnection.productionPath(baseURL);
         Map<String, String> params = new HashMap<>();
         params.put("action", "1");
         params.put("phone_number", phoneNumber);
         params.put("password", password);
+        params.put("type", "0");
 
         NetworkConnection.with(this).withListener(new NetworkConnection.ResponseListener() {
             @Override

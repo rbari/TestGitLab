@@ -69,6 +69,13 @@ public class Home extends AppCompatActivity
                 showPromoFragment();
             }
         });
+        findViewById(R.id.homeUserProBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  =  new Intent(Home.this, Settings.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

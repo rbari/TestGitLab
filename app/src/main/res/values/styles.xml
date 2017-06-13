@@ -22,11 +22,11 @@
         <item name="colorPrimaryDark">@color/background_color</item>
         <item name="colorAccent">@color/black</item>
 
-    <!--    <item name="android:textColor">@color/black</item>
-        <item name="android:textColorHint">@color/black</item>
-        <item name="android:editTextColor">@color/black</item>
-        <item name="colorControlNormal">@color/black</item>
-        <item name="colorControlActivated">@color/black</item>-->
+        <!--    <item name="android:textColor">@color/black</item>
+            <item name="android:textColorHint">@color/black</item>
+            <item name="android:editTextColor">@color/black</item>
+            <item name="colorControlNormal">@color/black</item>
+            <item name="colorControlActivated">@color/black</item>-->
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
@@ -38,7 +38,9 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/foreground_color</item>
+    </style>
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

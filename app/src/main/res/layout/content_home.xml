@@ -24,7 +24,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha=".22"
+            android:alpha=".30"
             android:background="@color/foreground_color" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:padding="16dp"
             android:text="It's a beautiful day to go outside \n Hire a ride to get to your destination fastest"
             android:textAlignment="center"
-            android:textColor="@color/background_color"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold|italic" />
 
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/background_color_highlight"
+        android:background="@color/foreground_color"
         android:paddingTop="19dp">
 
 

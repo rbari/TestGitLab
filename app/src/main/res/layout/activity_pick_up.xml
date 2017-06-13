@@ -11,43 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:local="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark"
-            android:minHeight="?attr/actionBarSize"
-            local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentInsetStart="0dp"
-            >
+            android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:orientation="horizontal">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/background_color"
+            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
 
-                <ImageView
-                    android:id="@+id/backBtn"
-                    android:layout_width="48dp"
-                    android:layout_height="match_parent"
-                    android:padding="8dp"
-                    android:src="@android:drawable/arrow_up_float" />
-                <TextView
-                    android:text="test"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:id="@+id/tbTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-
-        </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_map"
                 android:gravity="center"
-                android:minWidth="250dp"
+                android:minWidth="150dp"
                 android:paddingLeft="2dp"
                 android:paddingRight="2dp"
                 android:text=" Set your Location "

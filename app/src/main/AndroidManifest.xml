@@ -32,7 +32,8 @@
             android:name=".customer.activity.LoginSignUpActivity"
             android:theme="@style/LogIn"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".customer.activity.PickUpAndDropOff" />
+        <activity android:name=".customer.activity.PickUpAndDropOff"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".customer.service.FetchAddressIntentService"
@@ -48,6 +49,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".customer.activity.Notification"
+            android:label="@string/title_activity_notification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".customer.activity.OrderDetails"
             android:label="@string/title_activity_notification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
