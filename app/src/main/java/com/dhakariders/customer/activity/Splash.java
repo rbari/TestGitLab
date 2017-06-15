@@ -79,7 +79,7 @@ public class Splash extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             if(SharedPref.isLoggedIn(Splash.this)){
-                                Intent intent =  new Intent(Splash.this, OrderDetails.class);
+                                Intent intent =  new Intent(Splash.this, Home.class);
                                 startActivity(intent);
                             }else{
                                 Intent i = new Intent(Splash.this, LoginSignUpActivity.class);

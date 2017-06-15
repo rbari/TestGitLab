@@ -86,6 +86,12 @@ public class Home extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if(SharedPref.isOrderActive(this)){
+            Intent intent =  new Intent(this, OrderDetails.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
         isActive = true;
         if(pictureChanger == null){
             pictureChanger = new Handler();

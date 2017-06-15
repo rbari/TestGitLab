@@ -33,9 +33,10 @@ public class Order extends android.support.v4.app.DialogFragment {
     private static final String TAG = "Order";
     public static JSONObject json;
     //private final static String baseURL = "http://ec2-52-36-4-117.us-west-2.compute.amazonaws.com/api/v1/session";
-    private final static String baseURL = "http://192.168.21.101:9000/api/v1/order";
+    private final static String baseURL = "http://192.168.2.9:9000/api/v1/order";
 
     private String orderID;
+    private String msg;
 
     public Order(){
 
@@ -93,6 +94,31 @@ public class Order extends android.support.v4.app.DialogFragment {
             @Override
             public void onClick(View v) {
                 //Order.this.dismiss();
+                NetworkConnection.testPath(baseURL);
+                NetworkConnection.productionPath(baseURL);
+                Map<String, String> params = new HashMap<>();
+                params.put("action", "1");
+                params.put("session_id", SharedPref.getSessionId(getContext()));
+                params.put("ord_id", orderID);
+
+                NetworkConnection.with(getContext()).withListener(new NetworkConnection.ResponseListener() {
+                    @Override
+                    public void onSuccessfullyResponse(String response) {
+
+                        SharedPref.setHasAnActiveOrder(getContext(), true);
+                        SharedPref.setOrderID(getContext(), orderID);
+                        SharedPref.setDriverDetails(getContext(), msg);
+                        getActivity().finish();
+                        Order.this.dismiss();
+                    }
+
+                    @Override
+                    public void onErrorResponse(String error, String message, int code) {
+                        Log.w(TAG, error + "  " + message + " " + code);
+                        Order.this.dismiss();
+                    }
+                }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
+
             }
         });
         return rootView;
@@ -105,7 +131,7 @@ public class Order extends android.support.v4.app.DialogFragment {
             String driverPhone = json.getString("driver_phone");
             String driverCar = json.getString("driver_car");
             TextView textView4 = (TextView) rootView.findViewById(R.id.textView4);
-            String msg = "Driver Name - "+driverName+"\nPhone No. - "+driverPhone+"\nSerial - "+driverCar;
+            msg = "Driver Name - "+driverName+"\nPhone No. - "+driverPhone+"\nSerial - "+driverCar;
             textView4.setText(msg);
         }catch (Exception ignored){
 

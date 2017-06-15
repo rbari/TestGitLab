@@ -80,7 +80,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
 
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 999;
     //private final static String baseURL = "http://ec2-52-36-4-117.us-west-2.compute.amazonaws.com/api/v1/session";
-    private final static String baseURL = "http://192.168.21.101:9000/api/v1/order";
+    private final static String baseURL = "http://192.168.2.9:9000/api/v1/order";
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -261,18 +261,21 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         Map<String, String> params = new HashMap<>();
         params.put("action", "0");
         params.put("session_id", sessionID);
-      /*  params.put("s_lat", String.valueOf(fromLatLong.latitude));
+        params.put("s_lat", String.valueOf(fromLatLong.latitude));
         params.put("s_lon", String.valueOf(fromLatLong.longitude));
         params.put("e_lat", String.valueOf(toLatLong.latitude));
-        params.put("e_lon", String.valueOf(toLatLong.longitude));*/
+        params.put("e_lon", String.valueOf(toLatLong.longitude));
+        params.put("dist", distance);
 
+/*
         params.put("s_lat", "29.000056");
         params.put("s_lon", "29.000005");
         params.put("e_lat", "32.012456");
         params.put("e_lon", "33.957374");
         params.put("dist", "40");
+*/
 
-        params.put("dist", distance);
+
 
         NetworkConnection.with(this).withListener(new NetworkConnection.ResponseListener() {
             @Override
@@ -288,6 +291,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                                 Order.json = jsonObject;
                                 Order order = new Order();
                                 order.show(getSupportFragmentManager(),"Order");
+                                reset();
                             }
                         });
                     }else{
@@ -865,6 +869,10 @@ private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<St
         distance = null;
         duration = null;
 
+        if(result == null){
+            return;
+        }
+
         if (result.size() < 1) {
             Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
             return;
@@ -904,7 +912,7 @@ private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<St
         }
 
         Log.wtf(TAG, "Distance:" + distance + ", Duration:" + duration);
-        distance = distance.replace("km", "").trim();
+        distance = distance.replaceAll("\\D+","").trim();
 
 
         // Drawing polyline in the Google Map for the i-th route
