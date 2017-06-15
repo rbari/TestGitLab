@@ -30,7 +30,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
 
     private final static String TAG = "LoginSignUpActivity";
     //private final static String baseURL = "http://ec2-52-36-4-117.us-west-2.compute.amazonaws.com/api/v1/session";
-    private final static String baseURL = "http://192.168.2.9:9000/api/v1/session";
+    private final static String baseURL = "http://192.168.21.101:9000/api/v1/session";
 
     private View logInCardView, signUpCardView;
     private boolean isInForgetPassword;

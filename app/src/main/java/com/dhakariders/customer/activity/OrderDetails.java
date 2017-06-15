@@ -27,10 +27,10 @@ public class OrderDetails extends AppCompatActivity {
     private final static String baseURL = "http://192.168.21.101:9000/api/v1/pulls";
     private final static String TAG = "OrderDetails";
 
-
     private boolean isActive;
     private Handler pullRunner;
     private HomeFragment homeFragment;
+    private TextView driverStatus;
 
     private String distance;
     private double curr_lat;
@@ -60,8 +60,8 @@ public class OrderDetails extends AppCompatActivity {
         textView.setText(SharedPref.getDriverDetails(this));
 
         homeFragment =  (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.orderMap);
-
-
+        driverStatus = (TextView) findViewById(R.id.driverStatus);
+        driverStatus.setText("Status - Synchronizing");
     }
 
     @Override
@@ -108,6 +108,12 @@ public class OrderDetails extends AppCompatActivity {
                                     curr_lng  = jsonObject.optDouble(CURR_LON, 0);
                                     bill  = jsonObject.optString(BILL, "0");
                                     driver_status  = jsonObject.optInt(DRIVER_STATUS, 0);
+                                    if (driver_status == 1)
+                                        driverStatus.setText("Status - Driver Coming");
+                                    else if (driver_status ==2)
+                                        driverStatus.setText("Status - Ride Started");
+                                    else
+                                        driverStatus.setText("Status - Synchronizing");
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
