@@ -42,7 +42,10 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:padding="16dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="4dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -76,6 +79,20 @@
             android:textAlignment="center"
             android:textColor="@color/background_color"
             android:textSize="18sp" />
+        <TextView
+            android:id="@+id/paidBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/home_btn_bg_3"
+            android:paddingBottom="8dp"
+            android:paddingLeft="26dp"
+            android:paddingRight="26dp"
+            android:paddingTop="8dp"
+            android:text="PAID"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
     </LinearLayout>
 
 

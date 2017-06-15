@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.dhakariders.R;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 public class OrderDetails extends AppCompatActivity {
 
-    private final static String baseURL = "http://192.168.21.101:9000/api/v1/pulls";
+    private final static String baseURL = "http://ec2-35-163-88-251.us-west-2.compute.amazonaws.com/api/v1/pulls";
     private final static String TAG = "OrderDetails";
 
     private boolean isActive;
@@ -43,6 +44,7 @@ public class OrderDetails extends AppCompatActivity {
     private final static String CURR_LON = "curr_lon";
     private final static String BILL = "bill";
     private final static String DRIVER_STATUS = "driver_status";
+    private View paidBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,13 @@ public class OrderDetails extends AppCompatActivity {
         homeFragment =  (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.orderMap);
         driverStatus = (TextView) findViewById(R.id.driverStatus);
         driverStatus.setText("Status - Synchronizing");
+        paidBtn  = findViewById(R.id.paidBtn);
+        paidBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPref.setHasAnActiveOrder(v.getContext(), false);
+            }
+        });
     }
 
     @Override
@@ -108,12 +117,26 @@ public class OrderDetails extends AppCompatActivity {
                                     curr_lng  = jsonObject.optDouble(CURR_LON, 0);
                                     bill  = jsonObject.optString(BILL, "0");
                                     driver_status  = jsonObject.optInt(DRIVER_STATUS, 0);
-                                    if (driver_status == 1)
+                                    if (driver_status == 1) {
                                         driverStatus.setText("Status - Driver Coming");
-                                    else if (driver_status ==2)
-                                        driverStatus.setText("Status - Ride Started: "+ distance);
-                                    else
+                                    }
+                                    else if (driver_status ==2) {
+                                        driverStatus.setText("Status - Ride Started: " + distance + " Bill - "+bill);
+                                    }
+                                    else if (driver_status == 3){
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Location mLocation = new Location("");
+                                                mLocation.setLatitude(curr_lat);
+                                                mLocation.setLongitude(curr_lng);
+                                                homeFragment.changeMap(mLocation);
+                                            }
+                                        });
+                                    }
+                                    else {
                                         driverStatus.setText("Status - Synchronizing");
+                                    }
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {

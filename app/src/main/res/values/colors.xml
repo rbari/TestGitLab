@@ -24,4 +24,5 @@
     <color name="background_color_highlight">#000000</color>
   <!--  <color name="foreground_color">#ffcf07</color>-->
     <color name="foreground_color">#ffdd1c</color>
+    <color name="green">#388e3c</color>
 </resources>
