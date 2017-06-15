@@ -111,7 +111,7 @@ public class OrderDetails extends AppCompatActivity {
                                     if (driver_status == 1)
                                         driverStatus.setText("Status - Driver Coming");
                                     else if (driver_status ==2)
-                                        driverStatus.setText("Status - Ride Started");
+                                        driverStatus.setText("Status - Ride Started: "+ distance);
                                     else
                                         driverStatus.setText("Status - Synchronizing");
                                     runOnUiThread(new Runnable() {
