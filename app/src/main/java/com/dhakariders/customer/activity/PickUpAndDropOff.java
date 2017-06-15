@@ -79,7 +79,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
 
 
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 999;
-    private final static String baseURL = "http://ec2-35-163-88-251.us-west-2.compute.amazonaws.com/api/v1/session";
+    private final static String baseURL = "http://ec2-35-163-88-251.us-west-2.compute.amazonaws.com/api/v1/order";
     //private final static String baseURL = "http://192.168.21.101:9000/api/v1/order";
 
     private GoogleMap mMap;
