@@ -67,7 +67,7 @@ public class Splash extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            try {
+                          /*  try {
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                 Date date = sdf.parse("15/6/2017");
                                 if (System.currentTimeMillis() > date.getTime()) {
@@ -77,7 +77,7 @@ public class Splash extends AppCompatActivity {
                                 }
                             } catch (ParseException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
                             if(SharedPref.isLoggedIn(Splash.this)){
                                 Intent intent =  new Intent(Splash.this, Home.class);
                                 startActivity(intent);

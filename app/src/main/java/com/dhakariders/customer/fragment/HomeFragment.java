@@ -75,6 +75,10 @@ public class HomeFragment extends Fragment  implements OnMapReadyCallback,  Goog
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        init();
+    }
+
+    public void init(){
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.mapHome);
         mapFragment.getMapAsync(this);
