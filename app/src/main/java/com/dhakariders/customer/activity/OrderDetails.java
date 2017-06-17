@@ -29,6 +29,7 @@ public class OrderDetails extends AppCompatActivity {
     private final static String TAG = "OrderDetails";
 
     private boolean isActive;
+    private boolean shouldUpdateDistance = true;
     private Handler pullRunner;
     private HomeFragment homeFragment;
     private TextView driverStatus;
@@ -120,17 +121,17 @@ public class OrderDetails extends AppCompatActivity {
                                     if (driver_status == 1) {
                                         driverStatus.setText("Status - Driver Coming");
                                     }
-                                    else if (driver_status ==2) {
+                                    else if (driver_status ==2  && shouldUpdateDistance) {
                                         driverStatus.setText("Status - Ride Started: " + distance + " Bill - "+bill);
                                     }
                                     else if (driver_status == 3){
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Location mLocation = new Location("");
-                                                mLocation.setLatitude(curr_lat);
-                                                mLocation.setLongitude(curr_lng);
-                                                homeFragment.changeMap(mLocation);
+                                               if(shouldUpdateDistance){
+                                                   shouldUpdateDistance = false;
+                                                   paidBtn.setVisibility(View.VISIBLE);
+                                               }
                                             }
                                         });
                                     }

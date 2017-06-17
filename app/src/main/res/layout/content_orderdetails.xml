@@ -70,7 +70,7 @@
             android:id="@+id/driverDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/foreground_color"
+            android:background="@drawable/home_btn_bg_2"
             android:paddingBottom="8dp"
             android:paddingLeft="26dp"
             android:paddingRight="26dp"
@@ -78,9 +78,10 @@
             android:text="This is a message that will be shown here"
             android:textAlignment="center"
             android:textColor="@color/background_color"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
         <TextView
             android:id="@+id/paidBtn"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
