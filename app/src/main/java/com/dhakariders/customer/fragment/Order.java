@@ -32,7 +32,7 @@ public class Order extends android.support.v4.app.DialogFragment {
 
     private static final String TAG = "Order";
     public static JSONObject json;
-    private final static String baseURL = "http://ec2-35-163-88-251.us-west-2.compute.amazonaws.com/api/v1/order";
+    private final static String baseURL = SharedPref.BASE_URL+"order";
     //private final static String baseURL = "http://192.168.21.101:9000/api/v1/order";
 
     private String orderID;

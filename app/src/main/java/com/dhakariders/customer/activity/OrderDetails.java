@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class OrderDetails extends AppCompatActivity {
 
-    private final static String baseURL = "http://ec2-35-163-88-251.us-west-2.compute.amazonaws.com/api/v1/pulls";
+    private final static String baseURL = SharedPref.BASE_URL+"pulls";
     private final static String TAG = "OrderDetails";
 
     private boolean isActive;
