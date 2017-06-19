@@ -49,6 +49,16 @@ public class SharedPref {
         editor.apply();
     }
 
+    private static final String userPhoneNumber = "USER_PHONE_NUMBER";
+    public static String getUserPhoneNumber(Context context){
+        return SharedPref(context).getString(userPhoneNumber, "No. Number");
+    }
+    public static void setUserPhoneNumber(Context context, String userPhoneNumber){
+        SharedPreferences.Editor editor  =  Editor(context);
+        editor.putString(SharedPref.userPhoneNumber, userPhoneNumber);
+        editor.apply();
+    }
+
     private static final String password = "PASSWORD";
     public static String getPassword(Context context){
         return SharedPref(context).getString(password, "12345678");

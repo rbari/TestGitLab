@@ -162,8 +162,8 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void signUpTask() {
-        String userName = signUpNameET.getText().toString();
-        String phoneNumber = signUpPhoneNumberET.getText().toString();
+        final String userName = signUpNameET.getText().toString();
+        final String phoneNumber = signUpPhoneNumberET.getText().toString();
         String password_0 = signUpPasswordET_0.getText().toString();
         String password_1 = signUpPasswordET_1.getText().toString();
         if(userName.length() < 1){
@@ -202,6 +202,8 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
                         String session_id = jsonObject.getString("session_id");
                         SharedPref.setIsLoggedIn(LoginSignUpActivity.this, true);
                         SharedPref.setSessionId(LoginSignUpActivity.this, session_id);
+                        SharedPref.setUserName(LoginSignUpActivity.this, userName);
+                        SharedPref.setUserPhoneNumber(LoginSignUpActivity.this, phoneNumber);
                         Intent intent = new Intent(LoginSignUpActivity.this, Home.class);
                         startActivity(intent);
                         finish();

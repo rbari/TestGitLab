@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dhakariders.R;
 import com.dhakariders.customer.fragment.FreeRides;
@@ -77,6 +78,8 @@ public class Home extends AppCompatActivity
             }
         });
 
+        ((TextView)findViewById(R.id.drawerUserName)).setText(SharedPref.getUserName(this));
+        ((TextView)findViewById(R.id.drawerUserNumber)).setText(SharedPref.getUserPhoneNumber(this));
     }
 
     Handler pictureChanger;
