@@ -46,6 +46,7 @@
         <activity
             android:name=".customer.activity.Home"
             android:label="@string/title_activity_home__v2"
+            android:launchMode= "singleInstance"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".customer.activity.Notification"

@@ -1,5 +1,6 @@
 package com.dhakariders.customer.activity;
 
+import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -70,6 +71,9 @@ public class OrderDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPref.setHasAnActiveOrder(v.getContext(), false);
+                Intent intent  = new Intent(v.getContext(), Home.class);
+                v.getContext().startActivity(intent);
+                OrderDetails.this.finish();
             }
         });
     }
