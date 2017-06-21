@@ -3,6 +3,8 @@ package com.dhakariders.customer.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.widget.TextView;
 
 import com.dhakariders.R;
 
@@ -18,6 +20,7 @@ public class Support extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Support");
+        ((TextView)findViewById(R.id.supportID)).setText(R.string.support);
     }
 
     @Override

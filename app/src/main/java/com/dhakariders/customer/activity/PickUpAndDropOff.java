@@ -151,7 +151,8 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                     return;
                 }
             }
-            init();
+            finish();
+            startActivity(getIntent());
         }
     }
 

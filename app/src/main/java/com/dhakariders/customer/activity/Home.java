@@ -78,8 +78,11 @@ public class Home extends AppCompatActivity
             }
         });
 
-        ((TextView)findViewById(R.id.drawerUserName)).setText(SharedPref.getUserName(this));
-        ((TextView)findViewById(R.id.drawerUserNumber)).setText(SharedPref.getUserPhoneNumber(this));
+
+        View headerLayout = navigationView.getHeaderView(0);
+
+        ((TextView)headerLayout.findViewById(R.id.drawerUserName)).setText(SharedPref.getUserName(this));
+        ((TextView)headerLayout.findViewById(R.id.drawerUserNumber)).setText(SharedPref.getUserPhoneNumber(this));
     }
 
     Handler pictureChanger;

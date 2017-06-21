@@ -28,4 +28,23 @@
     <string name="title_activity_notification">Notification</string>
     <string name="title_activity_promotions">Promotions</string>
 
+    <string name="about">The first online motorcycle taxi service in Bangladesh since 2017.\n\n
+        Dhaka Riders is ready to take you anywhere, anytime quickly.\n\n
+        Starting in 2017 as a two-wheeler transportation company by phone call,
+        Dhaka Riders has now grown to become a leading on-demand mobile platform
+        and application that provides a full range of services ranging from transportation,
+        logistics, payment, food delivery, and various services on -demand.
+    </string>
+
+
+    <string name="support">The hotline number of our dhaka rider is as follows:\n\n
+        +88096145050\n\n
+        +8809614505050\n\n
+        Our facebook link:\n
+        https://www.facebook.com/mydhakaride/
+    </string>
+
+
+
+
 </resources>
