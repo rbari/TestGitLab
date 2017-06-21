@@ -1,21 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/foreground_color"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="16dp"
+            android:text="The hotline number of our dhaka rider is as follows:"
+            android:textColor="@color/background_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/phoneBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/phone_ic"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="+88096145050"
+                android:textColor="@color/background_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/forward_ic"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/telephoneBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/telephone_ic"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="+8809614505050"
+                android:textColor="@color/background_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/forward_ic"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
     <TextView
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:padding="16dp"
-        android:id="@+id/supportID"
-        android:textSize="18sp"
-        android:textStyle="italic"
+        android:text="Our facebook link:"
+        android:textAlignment="center"
         android:textColor="@color/background_color"
-        />
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/facebookBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/facebook_ic"/>
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/facebook_link"
+            android:textColor="@color/background_color"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/forward_ic"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -37,12 +37,8 @@
     </string>
 
 
-    <string name="support">The hotline number of our dhaka rider is as follows:\n\n
-        +88096145050\n\n
-        +8809614505050\n\n
-        Our facebook link:\n
-        https://www.facebook.com/mydhakaride/
-    </string>
+
+    <string name="facebook_link"><u>https://www.facebook.com/mydhakaride/</u></string>
 
 
 

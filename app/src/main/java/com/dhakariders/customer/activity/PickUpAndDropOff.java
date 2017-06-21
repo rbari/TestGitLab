@@ -69,6 +69,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -119,6 +120,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
     private ProgressDialog pd;
     private String distance;
     private String duration;
+    private static DecimalFormat df1 = new DecimalFormat(".#######");
 
 
     @Override
@@ -262,10 +264,10 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         Map<String, String> params = new HashMap<>();
         params.put("action", "0");
         params.put("session_id", sessionID);
-        params.put("s_lat", String.valueOf(fromLatLong.latitude));
-        params.put("s_lon", String.valueOf(fromLatLong.longitude));
-        params.put("e_lat", String.valueOf(toLatLong.latitude));
-        params.put("e_lon", String.valueOf(toLatLong.longitude));
+        params.put("s_lat", String.valueOf(df1.format(fromLatLong.latitude)));
+        params.put("s_lon", String.valueOf(df1.format(fromLatLong.longitude)));
+        params.put("e_lat", String.valueOf(df1.format(toLatLong.latitude)));
+        params.put("e_lon", String.valueOf(df1.format(toLatLong.longitude)));
         params.put("dist", distance);
 
 /*
