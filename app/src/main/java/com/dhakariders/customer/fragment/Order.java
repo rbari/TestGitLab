@@ -37,6 +37,8 @@ public class Order extends android.support.v4.app.DialogFragment {
 
     private String orderID;
     private String msg;
+    private String driverName;
+    private String driverPhone;
 
     public Order(){
 
@@ -107,7 +109,9 @@ public class Order extends android.support.v4.app.DialogFragment {
 
                         SharedPref.setHasAnActiveOrder(getContext(), true);
                         SharedPref.setOrderID(getContext(), orderID);
-                        SharedPref.setDriverDetails(getContext(), msg);
+                        //SharedPref.setDriverDetails(getContext(), msg);
+                        SharedPref.setDriverName(getContext(), driverName);
+                        SharedPref.setDriverNumber(getContext(), driverPhone);
                         getActivity().finish();
                         Order.this.dismiss();
                     }
@@ -127,8 +131,8 @@ public class Order extends android.support.v4.app.DialogFragment {
     private void intView(View rootView) {
         try {
             orderID = json.getString("order_id");
-            String driverName = json.getString("driver_name");
-            String driverPhone = json.getString("driver_phone");
+            driverName = json.getString("driver_name");
+            driverPhone = json.getString("driver_phone");
             String driverCar = json.getString("driver_car");
             TextView textView4 = (TextView) rootView.findViewById(R.id.textView4);
             msg = "Driver Name - "+driverName+"\nPhone No. - "+driverPhone+"\nSerial - "+driverCar;

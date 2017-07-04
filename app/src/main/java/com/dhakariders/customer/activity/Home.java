@@ -78,6 +78,14 @@ public class Home extends AppCompatActivity
             }
         });
 
+        findViewById(R.id.homeSupportBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  =  new Intent(v.getContext(), Support.class);
+                startActivity(intent);
+            }
+        });
+
 
         View headerLayout = navigationView.getHeaderView(0);
 

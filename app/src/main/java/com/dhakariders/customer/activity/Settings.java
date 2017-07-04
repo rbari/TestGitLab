@@ -3,8 +3,10 @@ package com.dhakariders.customer.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.dhakariders.R;
+import com.dhakariders.customer.utils.SharedPref;
 
 public class Settings extends AppCompatActivity {
 
@@ -18,6 +20,8 @@ public class Settings extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Settings");
+        ((TextView)findViewById(R.id.settingNameTV)).setText("Name - "+SharedPref.getUserName(this));
+        ((TextView)findViewById(R.id.settingPhoneTV)).setText("Phone - "+SharedPref.getUserPhoneNumber(this));
     }
 
     @Override

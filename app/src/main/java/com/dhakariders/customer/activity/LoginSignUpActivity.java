@@ -245,7 +245,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void logInTask() {
-        String phoneNumber = loginPhoneNumberET.getText().toString();
+        final String phoneNumber = loginPhoneNumberET.getText().toString();
         String password = loginPasswordET.getText().toString();
         if (phoneNumber.length() != 11) {
             Toast.makeText(this, "Please provide a valid bangladeshi 11 digits mobile number without country code", Toast.LENGTH_LONG).show();
@@ -273,6 +273,9 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.optBoolean("success")) {
                         String session_id = jsonObject.getString("session_id");
+                        String name  =  jsonObject.getString("username");
+                        SharedPref.setUserPhoneNumber(LoginSignUpActivity.this, phoneNumber);
+                        SharedPref.setUserName(LoginSignUpActivity.this, name);
                         SharedPref.setIsLoggedIn(LoginSignUpActivity.this, true);
                         SharedPref.setSessionId(LoginSignUpActivity.this, session_id);
                         Intent intent = new Intent(LoginSignUpActivity.this, Home.class);

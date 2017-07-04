@@ -10,7 +10,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.6">
+        android:layout_weight="1">
+
         <fragment
             android:id="@+id/orderMap"
             android:name="com.dhakariders.customer.fragment.HomeFragment"
@@ -21,10 +22,10 @@
         </fragment>
 
         <pl.bclogic.pulsator4droid.library.PulsatorLayout
-            android:visibility="gone"
             android:id="@+id/pulsator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             app:pulse_color="@color/foreground_color"
             app:pulse_count="4"
             app:pulse_duration="7000"
@@ -42,58 +43,186 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:paddingTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:paddingBottom="4dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4"
-        android:gravity="center">
+        android:paddingTop="16dp">
 
-        <TextView
-            android:id="@+id/driverStatus"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/home_btn_bg_2"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="26dp"
-            android:paddingRight="26dp"
-            android:text="Status - Driver Coming"
-            android:textColor="@color/background_color"
-            android:textSize="12sp" />
+            android:paddingBottom="4dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp">
 
-        <TextView
-            android:id="@+id/driverDetails"
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/status_ic" />
+
+            <TextView
+                android:id="@+id/driverStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status - Driver Coming"
+                android:textColor="@color/background_color"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailsHolder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/home_btn_bg_2"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="4dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginRight="4dp"
+                    android:src="@drawable/distance_ic" />
+
+                <TextView
+                    android:id="@+id/distanceTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distance  - 20km"
+                    android:textColor="@color/background_color"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/home_btn_bg_2"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="4dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginRight="4dp"
+                    android:src="@drawable/bill_ic" />
+
+                <TextView
+                    android:id="@+id/billTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bill  - 20km"
+                    android:textColor="@color/background_color"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/home_btn_bg_2"
-            android:paddingBottom="8dp"
-            android:paddingLeft="26dp"
-            android:paddingRight="26dp"
-            android:paddingTop="8dp"
-            android:text="This is a message that will be shown here"
-            android:textAlignment="center"
-            android:textColor="@color/background_color"
-            android:textSize="16sp" />
+            android:paddingBottom="4dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/driver_ic" />
+
+            <TextView
+                android:id="@+id/driverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Driver - Name"
+                android:textColor="@color/background_color"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/driverNumberHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/home_btn_bg_2"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/phone_ic" />
+
+            <TextView
+                android:id="@+id/driverNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Driver - Driver Coming"
+                android:textColor="@color/background_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="4dp"
+                android:src="@drawable/forward_ic" />
+
+        </LinearLayout>
+
+
         <TextView
             android:id="@+id/paidBtn"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/home_btn_bg_3"
             android:paddingBottom="8dp"
-            android:paddingLeft="26dp"
-            android:paddingRight="26dp"
+            android:paddingLeft="56dp"
+            android:paddingRight="56dp"
             android:paddingTop="8dp"
             android:text="PAID"
+            android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
     </LinearLayout>
 
 

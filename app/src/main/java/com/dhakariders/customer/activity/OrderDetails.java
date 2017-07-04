@@ -1,15 +1,22 @@
 package com.dhakariders.customer.activity;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dhakariders.R;
 import com.dhakariders.customer.fragment.HomeFragment;
@@ -27,6 +34,7 @@ import java.util.Map;
 public class OrderDetails extends AppCompatActivity {
 
     private final static String baseURL = SharedPref.BASE_URL+"pulls";
+    private final static String baseURL2 = SharedPref.BASE_URL + "order";
     private final static String TAG = "OrderDetails";
 
     private boolean isActive;
@@ -46,7 +54,10 @@ public class OrderDetails extends AppCompatActivity {
     private final static String CURR_LON = "curr_lon";
     private final static String BILL = "bill";
     private final static String DRIVER_STATUS = "driver_status";
-    private View paidBtn;
+    private TextView paidBtn;
+    private TextView distanceTv;
+    private View detailsHolder;
+    private TextView billTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,22 +71,110 @@ public class OrderDetails extends AppCompatActivity {
         getSupportActionBar().setTitle("Order Details");
        /* PulsatorLayout pulsator = (PulsatorLayout) findViewById(R.id.pulsator);
         pulsator.start();*/
-        TextView textView  = (TextView) findViewById(R.id.driverDetails);
-        textView.setText(SharedPref.getDriverDetails(this));
+        TextView textView  = (TextView) findViewById(R.id.driverName);
+        textView.setText("Driver : "+SharedPref.getDriverName(this));
+        TextView textView1  = (TextView) findViewById(R.id.driverNumber);
+        textView1.setText("Phone : "+SharedPref.getDriverNumber(this));
+
+        findViewById(R.id.driverNumberHolder).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callDriver();
+            }
+        });
 
         homeFragment =  (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.orderMap);
         driverStatus = (TextView) findViewById(R.id.driverStatus);
         driverStatus.setText("Status - Synchronizing");
-        paidBtn  = findViewById(R.id.paidBtn);
+        detailsHolder  = findViewById(R.id.detailsHolder);
+        distanceTv = (TextView) findViewById(R.id.distanceTV);
+        billTV  = (TextView) findViewById(R.id.billTV);
+        paidBtn  = (TextView) findViewById(R.id.paidBtn);
         paidBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPref.setHasAnActiveOrder(v.getContext(), false);
-                Intent intent  = new Intent(v.getContext(), Home.class);
-                v.getContext().startActivity(intent);
-                OrderDetails.this.finish();
+                paidButtonPressed(v.getContext());
             }
         });
+        paidBtn.setVisibility(View.GONE);
+    }
+
+    private void paidButtonPressed(Context context) {
+        if(driver_status == 1){
+
+            NetworkConnection.testPath(baseURL2);
+            NetworkConnection.productionPath(baseURL2);
+            Map<String, String> params = new HashMap<>();
+            params.put("action", "5");
+            params.put("session_id", SharedPref.getSessionId(OrderDetails.this));
+            params.put("ord_id", "" + SharedPref.getOrderID(OrderDetails.this));
+
+            NetworkConnection.with(OrderDetails.this).withListener(new NetworkConnection.ResponseListener() {
+                @Override
+                public void onSuccessfullyResponse(String response) {
+                    Log.w(TAG, "SERVER MESSAGE" + response);
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+
+                        if (jsonObject.optBoolean("success")) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SharedPref.setHasAnActiveOrder(OrderDetails.this, false);
+                                    Intent intent = new Intent(OrderDetails.this, Home.class);
+                                    OrderDetails.this.startActivity(intent);
+                                    OrderDetails.this.finish();
+
+                                }
+                            });
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onErrorResponse(String error, String message, int code) {
+                    Log.w(TAG, error + "  " + message + " " + code);
+
+                }
+            }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
+
+        }else {
+            SharedPref.setHasAnActiveOrder(context, false);
+            Intent intent = new Intent(context, Home.class);
+            context.startActivity(intent);
+            OrderDetails.this.finish();
+        }
+    }
+
+    private void callDriver() {
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    474);
+        } else {
+            startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:"+SharedPref.getDriverNumber(this))));
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+
+            case 474: {
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    callDriver();
+                } else {
+                    Toast.makeText(this, "Call Permission Not Granted", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+        }
     }
 
     @Override
@@ -91,7 +190,7 @@ public class OrderDetails extends AppCompatActivity {
         if(pullRunner == null){
             pullRunner = new Handler();
         }
-        pullRunner.postDelayed(runnable, 10000);
+        pullRunner.postDelayed(runnable, 5000);
     }
 
 
@@ -105,7 +204,7 @@ public class OrderDetails extends AppCompatActivity {
 
                         NetworkConnection.testPath(baseURL);
                         NetworkConnection.productionPath(baseURL);
-                        Map<String, String> params = new HashMap<>();
+                        final Map<String, String> params = new HashMap<>();
                         params.put("action", "1");
                         params.put("session_id", SharedPref.getSessionId(OrderDetails.this));
                         params.put("ord_id", SharedPref.getOrderID(OrderDetails.this));
@@ -123,19 +222,46 @@ public class OrderDetails extends AppCompatActivity {
                                     bill  = jsonObject.optString(BILL, "0");
                                     driver_status  = jsonObject.optInt(DRIVER_STATUS, 0);
                                     if (driver_status == 1) {
-                                        driverStatus.setText("Status - Driver Coming");
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                driverStatus.setText("Status - Driver Coming");
+                                                if(paidBtn.getVisibility() != View.VISIBLE){
+                                                    paidBtn.setVisibility(View.VISIBLE);
+                                                    paidBtn.setText("CANCEL RIDE");
+                                                }
+                                            }
+                                        });
+
                                     }
-                                    else if (driver_status ==2  && shouldUpdateDistance) {
-                                        driverStatus.setText("Status - Ride Started: " + distance + " Bill - "+bill);
+                                    else if (driver_status ==2) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if(detailsHolder.getVisibility() != View.VISIBLE){
+                                                    detailsHolder.setVisibility(View.VISIBLE);
+                                                }
+                                                billTV.setText("Bill : "+bill+"tk");
+                                                distanceTv.setText("Distance : "+distance+"km");
+                                                driverStatus.setText("Status - Ride Started");
+                                                if(paidBtn.getVisibility() == View.VISIBLE){
+                                                    paidBtn.setVisibility(View.GONE);
+                                                }
+                                            }
+                                        });
+
+
                                     }
                                     else if (driver_status == 3){
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                               if(shouldUpdateDistance){
-                                                   shouldUpdateDistance = false;
-                                                   paidBtn.setVisibility(View.VISIBLE);
-                                               }
+                                                if(paidBtn.getVisibility() != View.VISIBLE) {
+                                                    driverStatus.setText("Status - Ride ENDED");
+                                                    paidBtn.setVisibility(View.VISIBLE);
+                                                    paidBtn.setText("PAID");
+                                                }
+
                                             }
                                         });
                                     }
@@ -163,7 +289,7 @@ public class OrderDetails extends AppCompatActivity {
                             }
                         }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
 
-                        pullRunner.postDelayed(this, 10000);
+                        pullRunner.postDelayed(this, 5000);
                     }
                 }
             });
