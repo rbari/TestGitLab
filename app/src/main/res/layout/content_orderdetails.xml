@@ -5,12 +5,16 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical"
+    android:gravity="center"
+    android:animateLayoutChanges="true"
     android:background="@color/background_color">
 
     <RelativeLayout
+        android:id="@+id/mapHolder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="visible">
 
         <fragment
             android:id="@+id/orderMap"
@@ -21,26 +25,18 @@
 
         </fragment>
 
-        <pl.bclogic.pulsator4droid.library.PulsatorLayout
-            android:id="@+id/pulsator"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:pulse_color="@color/foreground_color"
-            app:pulse_count="4"
-            app:pulse_duration="7000"
-            app:pulse_interpolator="Linear"
-            app:pulse_repeat="0"
-            app:pulse_startFromScratch="false">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/bike_order" />
-        </pl.bclogic.pulsator4droid.library.PulsatorLayout>
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/handShakeView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="36dp"
+        android:layout_weight="1"
+        android:scaleType="center"
+        android:src="@drawable/handshake"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -220,7 +216,7 @@
             android:text="PAID"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="visible" />
     </LinearLayout>

@@ -58,6 +58,8 @@ public class OrderDetails extends AppCompatActivity {
     private TextView distanceTv;
     private View detailsHolder;
     private TextView billTV;
+    private View mapHolder;
+    private View handShakeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,8 @@ public class OrderDetails extends AppCompatActivity {
             }
         });
         paidBtn.setVisibility(View.GONE);
+        mapHolder =  findViewById(R.id.mapHolder);
+        handShakeView  = findViewById(R.id.handShakeView);
     }
 
     private void paidButtonPressed(Context context) {
@@ -260,6 +264,10 @@ public class OrderDetails extends AppCompatActivity {
                                                     driverStatus.setText("Status - Ride ENDED");
                                                     paidBtn.setVisibility(View.VISIBLE);
                                                     paidBtn.setText("PAID");
+                                                    if(mapHolder.getVisibility() != View.GONE){
+                                                        mapHolder.setVisibility(View.GONE);
+                                                        handShakeView.setVisibility(View.VISIBLE);
+                                                    }
                                                 }
 
                                             }

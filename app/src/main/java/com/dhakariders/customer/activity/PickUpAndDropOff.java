@@ -256,6 +256,23 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         pd.setCancelable(false);
     }
 
+    private void delayOrderButton() {
+
+        if(orderBtn.getVisibility() == View.GONE) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            orderBtn.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }, 800);
+        }
+    }
+
     private void placeAnOrder() {
         pd.show();
 
@@ -409,6 +426,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
                     mLocation.setLongitude(mCenterLatLong.longitude);
 
                     startIntentService(mLocation);
+                    delayOrderButton();
                     if(orderBtn == null  || (int)orderBtn.getTag() == PICKUP_STATE){
                         mLocationMarkerText.setText("Pick Up");
                     }
