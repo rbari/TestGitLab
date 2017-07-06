@@ -1,6 +1,7 @@
 package com.dhakariders.customer.fragment;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dhakariders.R;
+import com.dhakariders.customer.activity.OrderDetails;
 import com.dhakariders.customer.activity.PickUpAndDropOff;
 import com.dhakariders.customer.utils.SharedPref;
 import com.softwaremobility.network.Connection;
@@ -112,6 +114,8 @@ public class Order extends android.support.v4.app.DialogFragment {
                         //SharedPref.setDriverDetails(getContext(), msg);
                         SharedPref.setDriverName(getContext(), driverName);
                         SharedPref.setDriverNumber(getContext(), driverPhone);
+                        Intent intent =  new Intent(getActivity(), OrderDetails.class);
+                        startActivity(intent);
                         getActivity().finish();
                         Order.this.dismiss();
                     }
