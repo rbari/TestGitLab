@@ -1,4 +1,4 @@
-package com.dhakariders.customer.fragment;
+package com.dhakariders.user.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,13 +14,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dhakariders.R;
-import com.dhakariders.customer.activity.OrderDetails;
-import com.dhakariders.customer.activity.PickUpAndDropOff;
-import com.dhakariders.customer.utils.SharedPref;
+import com.dhakariders.user.activity.OrderDetails;
+import com.dhakariders.user.utils.SharedPref;
 import com.softwaremobility.network.Connection;
 import com.softwaremobility.simplehttp.NetworkConnection;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -114,9 +112,13 @@ public class Order extends android.support.v4.app.DialogFragment {
                         //SharedPref.setDriverDetails(getContext(), msg);
                         SharedPref.setDriverName(getContext(), driverName);
                         SharedPref.setDriverNumber(getContext(), driverPhone);
-                        Intent intent =  new Intent(getActivity(), OrderDetails.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                        try {
+                            Intent intent = new Intent(getActivity(), OrderDetails.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }catch (Exception ignored){
+
+                        }
                         Order.this.dismiss();
                     }
 

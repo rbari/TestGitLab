@@ -1,7 +1,6 @@
-package com.dhakariders.customer.activity;
+package com.dhakariders.user.activity;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -31,12 +30,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dhakariders.R;
-import com.dhakariders.customer.fragment.Order;
-import com.dhakariders.customer.fragment.Promotions;
-import com.dhakariders.customer.service.FetchAddressIntentService;
-import com.dhakariders.customer.utils.AppUtils;
-import com.dhakariders.customer.utils.DirectionsJSONParser;
-import com.dhakariders.customer.utils.SharedPref;
+import com.dhakariders.user.fragment.Order;
+import com.dhakariders.user.service.FetchAddressIntentService;
+import com.dhakariders.user.utils.AppUtils;
+import com.dhakariders.user.utils.DirectionsJSONParser;
+import com.dhakariders.user.utils.SharedPref;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -929,7 +927,7 @@ private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<St
             // Adding all the points in the route to LineOptions
             lineOptions.addAll(points);
             lineOptions.width(14);
-            lineOptions.color(getResources().getColor(R.color.foreground_color));
+            lineOptions.color(getResources().getColor(R.color.red));
         }
 
         Log.wtf(TAG, "Distance:" + distance + ", Duration:" + duration);

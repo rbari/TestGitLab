@@ -1,4 +1,4 @@
-package com.dhakariders.customer.utils;
+package com.dhakariders.user.utils;
 
 import android.content.Context;
 import android.graphics.drawable.LayerDrawable;

@@ -1,4 +1,4 @@
-package com.dhakariders.customer.activity;
+package com.dhakariders.user.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.dhakariders.customer.activity;
+package com.dhakariders.user.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dhakariders.R;
-import com.dhakariders.customer.utils.SharedPref;
+import com.dhakariders.user.utils.SharedPref;
 import com.softwaremobility.network.Connection;
 import com.softwaremobility.simplehttp.NetworkConnection;
 

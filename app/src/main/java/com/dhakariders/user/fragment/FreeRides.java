@@ -1,4 +1,4 @@
-package com.dhakariders.customer.fragment;
+package com.dhakariders.user.fragment;
 
 import android.app.Dialog;
 import android.content.ClipData;

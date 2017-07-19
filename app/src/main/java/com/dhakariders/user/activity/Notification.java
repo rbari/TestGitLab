@@ -1,32 +1,28 @@
-package com.dhakariders.customer.activity;
+package com.dhakariders.user.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import com.dhakariders.R;
-import com.dhakariders.customer.utils.SharedPref;
 
-public class Settings extends AppCompatActivity {
+public class Notification extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_notification);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.foreground_color));
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Settings");
-        ((TextView)findViewById(R.id.settingNameTV)).setText("Name - "+SharedPref.getUserName(this));
-        ((TextView)findViewById(R.id.settingPhoneTV)).setText("Phone - "+SharedPref.getUserPhoneNumber(this));
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Notification");
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        finish();
         return true;
     }
 }

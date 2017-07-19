@@ -56,10 +56,11 @@
             android:orientation="horizontal"
             android:padding="16dp"
             android:gravity="center_vertical">
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/telephone_ic"/>
+                android:src="@drawable/email_ic" />
 
             <TextView
                 android:layout_width="0dp"
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="+8809614505050"
+                android:text="dhakaridersbd@gmail.com"
                 android:textColor="@color/background_color"
                 android:textSize="18sp"
                 android:textStyle="bold" />

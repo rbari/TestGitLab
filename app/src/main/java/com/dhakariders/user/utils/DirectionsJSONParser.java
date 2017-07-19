@@ -1,4 +1,4 @@
-package com.dhakariders.customer.utils;
+package com.dhakariders.user.utils;
 
 import com.google.android.gms.maps.model.LatLng;
 

@@ -5,7 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".customer.activity.Notification"
+    tools:context=".user.activity.Notification"
     tools:showIn="@layout/activity_notification">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No Notification"
+        android:textColor="@color/background_color_highlight"
+        android:textSize="24sp"
+        android:textStyle="italic" />
 
 </RelativeLayout>

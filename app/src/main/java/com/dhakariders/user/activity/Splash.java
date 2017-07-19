@@ -1,45 +1,31 @@
-package com.dhakariders.customer.activity;
+package com.dhakariders.user.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
 import com.dhakariders.R;
-import com.dhakariders.customer.fragment.Order;
-import com.dhakariders.customer.utils.SharedPref;
+import com.dhakariders.user.utils.SharedPref;
+import com.viksaa.sssplash.lib.activity.AwesomeSplash;
+import com.viksaa.sssplash.lib.cnst.Flags;
+import com.viksaa.sssplash.lib.model.ConfigSplash;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static com.dhakariders.R.id.splashImageView;
 
-public class Splash extends AppCompatActivity {
+public class Splash extends AwesomeSplash {
 
-    private TextView splashTextView;
-    private View splashImageView;
+
     private boolean appIsVisible;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        /*Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/splash_typeface.ttf");
-        splashTextView = (TextView) findViewById(R.id.splashTextView);
-        splashTextView.setTypeface(myTypeface);*/
-        splashImageView = findViewById(R.id.splashImageView);
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        show();
         appIsVisible =  true;
     }
 
@@ -103,7 +89,7 @@ public class Splash extends AppCompatActivity {
 
             }
         });
-        splashImageView.setVisibility(View.VISIBLE);
+
       //  splashTextView.setVisibility(View.VISIBLE);
         animSetXY.start();
     }
@@ -112,5 +98,61 @@ public class Splash extends AppCompatActivity {
     protected void onPause() {
         appIsVisible = false;
         super.onPause();
+    }
+
+    @Override
+    public void initSplash(ConfigSplash configSplash) {
+        configSplash.setBackgroundColor(R.color.background_color); //any color you want form colors.xml
+        configSplash.setAnimCircularRevealDuration(500); //int ms
+        configSplash.setRevealFlagX(Flags.REVEAL_RIGHT);  //or Flags.REVEAL_LEFT
+        configSplash.setRevealFlagY(Flags.REVEAL_BOTTOM); //or Flags.REVEAL_TOP
+
+        configSplash.setLogoSplash(R.drawable.dhaka_riders_slpash); //or any other drawable
+        configSplash.setAnimLogoSplashDuration(500); //int ms
+        configSplash.setAnimLogoSplashTechnique(Techniques.FadeIn); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
+
+
+        //Customize Title
+        configSplash.setTitleSplash("Dhaka Riders");
+        configSplash.setTitleTextColor(R.color.foreground_color);
+        configSplash.setTitleTextSize(36f); //float value
+        configSplash.setAnimTitleDuration(500);
+        configSplash.setAnimTitleTechnique(Techniques.SlideInUp);
+        //configSplash.setTitleFont("fonts/sweet_sensations.ttf"); //provide string to your font located in assets/fonts/
+
+
+    }
+
+    @Override
+    public void animationsFinished() {
+        if(appIsVisible) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                          /*  try {
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                Date date = sdf.parse("15/6/2017");
+                                if (System.currentTimeMillis() > date.getTime()) {
+                                    Intent intent =  new Intent(Splash.this, Trial.class);
+                                    startActivity(intent);
+                                    return;
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }*/
+                    if(SharedPref.isLoggedIn(Splash.this)){
+                        Intent intent =  new Intent(Splash.this, Home.class);
+                        startActivity(intent);
+                    }else{
+                        Intent i = new Intent(Splash.this, LoginSignUpActivity.class);
+                        startActivity(i);
+                    }
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    finish();
+
+                }
+            }, 200);
+        }
     }
 }

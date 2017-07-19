@@ -1,7 +1,6 @@
-package com.dhakariders.customer.activity;
+package com.dhakariders.user.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
@@ -19,9 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dhakariders.R;
-import com.dhakariders.customer.fragment.FreeRides;
-import com.dhakariders.customer.fragment.Promotions;
-import com.dhakariders.customer.utils.SharedPref;
+import com.dhakariders.user.fragment.FreeRides;
+import com.dhakariders.user.fragment.Promotions;
+import com.dhakariders.user.utils.SharedPref;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,6 +63,7 @@ public class Home extends AppCompatActivity
             }
         });
         preview = (ImageView)findViewById(R.id.previewImage);
+        preview.setImageResource(R.drawable.preview_01);
         findViewById(R.id.homePromoBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,10 +107,10 @@ public class Home extends AppCompatActivity
             return;
         }
         isActive = true;
-        if(pictureChanger == null){
+       /* if(pictureChanger == null){
             pictureChanger = new Handler();
         }
-        pictureChanger.postDelayed(runnable, 5000);
+        pictureChanger.postDelayed(runnable, 5000);*/
     }
 
     Runnable runnable = new Runnable() {
@@ -136,9 +136,9 @@ public class Home extends AppCompatActivity
     protected void onPause() {
         super.onPause();
         isActive = false;
-        if(pictureChanger != null){
+        /*if(pictureChanger != null){
             pictureChanger.removeCallbacksAndMessages(null);
-        }
+        }*/
     }
 
     @Override

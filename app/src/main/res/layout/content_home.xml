@@ -19,12 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/preview_02" />
+            android:src="@drawable/preview_01" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha=".30"
+            android:alpha="0"
             android:background="@color/foreground_color" />
 
         <TextView

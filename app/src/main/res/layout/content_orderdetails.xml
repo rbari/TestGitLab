@@ -18,7 +18,7 @@
 
         <fragment
             android:id="@+id/orderMap"
-            android:name="com.dhakariders.customer.fragment.HomeFragment"
+            android:name="com.dhakariders.user.fragment.HomeFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

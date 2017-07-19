@@ -7,8 +7,8 @@ android {
         applicationId "com.dhakariders"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.0"
+        versionCode 1
+        versionName "0.5"
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
         multiDexEnabled true
@@ -33,4 +33,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:10.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'pl.bclogic:pulsator4droid:1.0.3'
+    compile 'com.github.ViksaaSkool:AwesomeSplash:v1.0.0'
 }

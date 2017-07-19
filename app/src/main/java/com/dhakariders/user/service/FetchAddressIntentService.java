@@ -1,4 +1,4 @@
-package com.dhakariders.customer.service;
+package com.dhakariders.user.service;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.util.Log;
 
 
 import com.dhakariders.R;
-import com.dhakariders.customer.utils.AppUtils;
+import com.dhakariders.user.utils.AppUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;

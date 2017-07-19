@@ -1,4 +1,4 @@
-package com.dhakariders.customer.fragment;
+package com.dhakariders.user.fragment;
 
 
 import android.Manifest;
@@ -20,11 +20,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.dhakariders.R;
-import com.dhakariders.customer.utils.AppUtils;
+import com.dhakariders.user.utils.AppUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

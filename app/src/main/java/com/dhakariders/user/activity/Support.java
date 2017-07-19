@@ -1,4 +1,4 @@
-package com.dhakariders.customer.activity;
+package com.dhakariders.user.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,9 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dhakariders.R;
@@ -35,12 +33,12 @@ public class Support extends AppCompatActivity {
                 makePhoneCall();
             }
         });
-        findViewById(R.id.telephoneBtn).setOnClickListener(new View.OnClickListener() {
+       /* findViewById(R.id.telephoneBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 makeTelephoneCall();
             }
-        });
+        });*/
         findViewById(R.id.facebookBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

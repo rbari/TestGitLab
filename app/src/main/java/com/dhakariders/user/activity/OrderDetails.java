@@ -1,4 +1,4 @@
-package com.dhakariders.customer.activity;
+package com.dhakariders.user.activity;
 
 import android.Manifest;
 import android.content.Context;
@@ -19,9 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dhakariders.R;
-import com.dhakariders.customer.fragment.HomeFragment;
-import com.dhakariders.customer.fragment.Order;
-import com.dhakariders.customer.utils.SharedPref;
+import com.dhakariders.user.fragment.HomeFragment;
+import com.dhakariders.user.utils.SharedPref;
 import com.softwaremobility.network.Connection;
 import com.softwaremobility.simplehttp.NetworkConnection;
 
@@ -246,7 +245,8 @@ public class OrderDetails extends AppCompatActivity {
                                                     detailsHolder.setVisibility(View.VISIBLE);
                                                 }
                                                 billTV.setText("Bill : "+bill+"tk");
-                                                distanceTv.setText("Distance : "+distance+"km");
+                                                int temp  = Integer.valueOf(distance);
+                                                distanceTv.setText("Distance : "+temp+"km");
                                                 driverStatus.setText("Status - Ride Started");
                                                 if(paidBtn.getVisibility() == View.VISIBLE){
                                                     paidBtn.setVisibility(View.GONE);

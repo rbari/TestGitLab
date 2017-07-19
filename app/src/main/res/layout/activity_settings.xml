@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    tools:context=".customer.activity.Settings">
+    tools:context=".user.activity.Settings">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <com.dhakariders.customer.utils.RoundedImage
+            <com.dhakariders.user.utils.RoundedImage
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:src="@drawable/default_user"

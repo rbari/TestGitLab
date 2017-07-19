@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <com.dhakariders.customer.utils.RoundedImage
+    <com.dhakariders.user.utils.RoundedImage
         android:id="@+id/imageView"
         android:layout_width="75dp"
         android:layout_height="75dp"
