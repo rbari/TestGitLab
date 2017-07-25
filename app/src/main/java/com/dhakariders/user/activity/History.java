@@ -1,0 +1,135 @@
+package com.dhakariders.user.activity;
+
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+
+import com.dhakariders.R;
+import com.dhakariders.user.fragment.NameChange;
+import com.dhakariders.user.utils.HistoryAdapter;
+import com.dhakariders.user.utils.HistoryDTO;
+import com.dhakariders.user.utils.SharedPref;
+import com.softwaremobility.network.Connection;
+import com.softwaremobility.simplehttp.NetworkConnection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class History extends AppCompatActivity {
+
+    private final static String baseURL2 = SharedPref.BASE_URL + "order";
+    private final static String TAG = "History";
+    private RecyclerView recyclerView;
+    private HistoryAdapter recyclerViewAdapter;
+    private LinkedHashMap <String, HistoryDTO> historyDTOs;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_history);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.foreground_color));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("History");
+        setUpRecycleView();
+    }
+
+    private void setUpRecycleView() {
+        historyDTOs = new LinkedHashMap();
+        recyclerView = (RecyclerView) findViewById(R.id.historyRV);
+        LinearLayoutManager recylerViewLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(recylerViewLayoutManager);
+        recyclerViewAdapter = new HistoryAdapter(this);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                recylerViewLayoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.history_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.setListener(new HistoryAdapter.RequestMoreData() {
+            @Override
+            public void request(int index) {
+                makeServerRequest(index);
+            }
+        });
+        makeServerRequest(0);
+    }
+
+    private void makeServerRequest(int index) {
+        NetworkConnection.testPath(baseURL2);
+        NetworkConnection.productionPath(baseURL2);
+        Map<String, String> params = new HashMap<>();
+        params.put("action", "5");
+        params.put("session_id", SharedPref.getSessionId(this));
+
+        NetworkConnection.with(this).withListener(new NetworkConnection.ResponseListener() {
+            @Override
+            public void onSuccessfullyResponse(String response) {
+                Log.w(TAG, "SERVER MESSAGE" + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.optBoolean("success")) {
+                        addHistory(jsonObject.getJSONArray("data"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onErrorResponse(String error, String message, int code) {
+                Log.w(TAG, error + "  " + message + " " + code);
+
+            }
+        }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
+    }
+
+    private void addHistory(JSONArray jsonArray){
+        final LinkedHashMap <String, HistoryDTO> temp  =  new LinkedHashMap<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                HistoryDTO  historyDTO  =  new HistoryDTO();
+                historyDTO.orderId  =  jsonObject.optString("ord_id", "error");
+                historyDTO.driverName  =  jsonObject.optString("driver_name", "error");
+                historyDTO.driverNumber  =  jsonObject.optString("driver_phone", "error");
+                historyDTO.distance  =  jsonObject.optString("dist", "error");
+                historyDTO.bill  =  jsonObject.optString("bill", "error");
+                temp.put(historyDTO.orderId, historyDTO);
+            }
+        }catch (Exception ignored){
+
+        }
+        temp.keySet().removeAll(historyDTOs.keySet());
+        if(temp.size() > 0){
+            historyDTOs.putAll(temp);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    recyclerViewAdapter.addHistoryDTOs(temp.values());
+                    recyclerViewAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+}

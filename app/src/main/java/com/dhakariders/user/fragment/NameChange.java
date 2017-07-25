@@ -1,0 +1,121 @@
+package com.dhakariders.user.fragment;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.dhakariders.R;
+import com.dhakariders.user.activity.Home;
+import com.dhakariders.user.activity.OrderDetails;
+import com.dhakariders.user.utils.SharedPref;
+import com.softwaremobility.network.Connection;
+import com.softwaremobility.simplehttp.NetworkConnection;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by rezwan on 4/24/16.
+ */
+public class NameChange extends android.support.v4.app.DialogFragment {
+
+    private EditText nameChangeET;
+    private final static String baseURL2 = SharedPref.BASE_URL + "order";
+    private final static String TAG = "NameChange";
+
+    public NameChange(){
+
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCanceledOnTouchOutside(false);
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.content_name_change, container, false);
+        intView(rootView);
+        rootView.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NameChange.this.dismiss();
+            }
+        });
+        rootView.findViewById(R.id.submitBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //NameChange.this.dismiss();
+                String newName  =  nameChangeET.getText().toString();
+                if(newName.length() > 0 && newName.equals(SharedPref.getUserName(getContext()))) {
+                    NetworkConnection.testPath(baseURL2);
+                    NetworkConnection.productionPath(baseURL2);
+                    Map<String, String> params = new HashMap<>();
+                    params.put("action", "5");
+                    params.put("session_id", SharedPref.getSessionId(getContext()));
+
+                    NetworkConnection.with(getContext()).withListener(new NetworkConnection.ResponseListener() {
+                        @Override
+                        public void onSuccessfullyResponse(String response) {
+                            Log.w(TAG, "SERVER MESSAGE" + response);
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+
+                                if (jsonObject.optBoolean("success")) {
+                                    SharedPref.setUserName(getContext(), "");
+                                }
+                                NameChange.this.dismiss();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onErrorResponse(String error, String message, int code) {
+                            Log.w(TAG, error + "  " + message + " " + code);
+
+                        }
+                    }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
+                }else{
+                    NameChange.this.dismiss();
+                }
+            }
+        });
+        return rootView;
+    }
+
+    private void intView(View rootView) {
+        nameChangeET = (EditText)rootView.findViewById(R.id.nameChangeET);
+        nameChangeET.setHint(SharedPref.getUserName(rootView.getContext()));
+    }
+    
+
+}

@@ -245,8 +245,7 @@ public class OrderDetails extends AppCompatActivity {
                                                     detailsHolder.setVisibility(View.VISIBLE);
                                                 }
                                                 billTV.setText("Bill : "+bill+"tk");
-                                                int temp  = Integer.valueOf(distance);
-                                                distanceTv.setText("Distance : "+temp+"km");
+                                                distanceTv.setText("Distance : "+distance+"km");
                                                 driverStatus.setText("Status - Ride Started");
                                                 if(paidBtn.getVisibility() == View.VISIBLE){
                                                     paidBtn.setVisibility(View.GONE);

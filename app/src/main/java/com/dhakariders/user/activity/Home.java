@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dhakariders.R;
 import com.dhakariders.user.fragment.FreeRides;
@@ -26,6 +27,7 @@ public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ImageView preview;
+    private TextView userNameTV;
     private int[] images = {R.drawable.preview_01, R.drawable.preview_02, R.drawable.preview_03, R.drawable.preview_04, R.drawable.preview_05};
 
     @Override
@@ -90,7 +92,7 @@ public class Home extends AppCompatActivity
         View headerLayout = navigationView.getHeaderView(0);
 
         ((TextView)headerLayout.findViewById(R.id.drawerUserName)).setText(SharedPref.getUserName(this));
-        ((TextView)headerLayout.findViewById(R.id.drawerUserNumber)).setText(SharedPref.getUserPhoneNumber(this));
+        userNameTV =  ((TextView)headerLayout.findViewById(R.id.drawerUserNumber));
     }
 
     Handler pictureChanger;
@@ -107,6 +109,9 @@ public class Home extends AppCompatActivity
             return;
         }
         isActive = true;
+        if(userNameTV != null){
+            userNameTV.setText(SharedPref.getUserPhoneNumber(this));
+        }
        /* if(pictureChanger == null){
             pictureChanger = new Handler();
         }
@@ -182,9 +187,11 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_promo) {
-           showPromoFragment();
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+           //showPromoFragment();
         } else if (id == R.id.nav_free_ride) {
-            showFreeRideFragment();
+            Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+            //showFreeRideFragment();
         } else if (id == R.id.nav_history) {
             Intent intent  =  new Intent(this, History.class);
             startActivity(intent);
