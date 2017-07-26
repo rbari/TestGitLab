@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/foreground_color"
+    android:padding="8dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/orderIdTV"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/history_order_bg"
+        android:gravity="center"
+        android:textColor="@color/foreground_color"
+        android:text="ID:123"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/driver_ic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="Driver Name :  "
+                android:textColor="@color/background_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/driverNameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rezwan"
+                android:textColor="@color/background_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/phone_ic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="Driver No. :  "
+                android:textColor="@color/background_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/driverNumberTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01717230976"
+                android:textColor="@color/background_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/bill_ic"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="Bill :  "
+                android:textColor="@color/background_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textColor="@color/background_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" tk"
+                android:textColor="@color/background_color"
+                android:textSize="16sp" />
+
+
+            <ImageView
+                android:layout_marginLeft="6dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/distance_ic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="Distance :  "
+                android:textColor="@color/background_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="@color/background_color"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" km"
+                android:textColor="@color/background_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

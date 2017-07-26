@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class PasswordChange extends android.support.v4.app.DialogFragment {
 
-    private final static String baseURL2 = SharedPref.BASE_URL + "order";
+    private final static String baseURL2 = SharedPref.BASE_URL + "session";
     private final static String TAG = "PasswordChange";
     private EditText currentPasswordET;
     private EditText newPasswordET_1;
@@ -73,7 +73,7 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
             public void onClick(View v) {
                 //PasswordChange.this.dismiss();
                 String currentPassword  =  currentPasswordET.getText().toString();
-                String password_0 =  newPasswordET_1.getText().toString();
+                final String password_0 =  newPasswordET_1.getText().toString();
                 String password_1  =  newPasswordET_2.getText().toString();
                 if(!currentPassword.equals(SharedPref.getPassword(getContext()))){
                     Toast.makeText(getContext(), "Current password didn't match", Toast.LENGTH_LONG).show();
@@ -91,8 +91,9 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
                 NetworkConnection.testPath(baseURL2);
                 NetworkConnection.productionPath(baseURL2);
                 Map<String, String> params = new HashMap<>();
-                params.put("action", "5");
+                params.put("action", "3");
                 params.put("session_id", SharedPref.getSessionId(getContext()));
+                params.put("password", password_0);
 
                 NetworkConnection.with(getContext()).withListener(new NetworkConnection.ResponseListener() {
                     @Override
@@ -102,7 +103,10 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
                             JSONObject jsonObject = new JSONObject(response);
 
                             if (jsonObject.optBoolean("success")) {
-                                SharedPref.setPassword(getContext(), "");
+                                SharedPref.setPassword(getContext(), password_0);
+                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                             }
                             PasswordChange.this.dismiss();
                         } catch (JSONException e) {

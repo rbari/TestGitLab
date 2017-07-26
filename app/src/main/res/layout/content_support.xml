@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="+88096145050"
+                android:text="+8809614505050"
                 android:textColor="@color/background_color"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -34,7 +34,7 @@ import java.util.Map;
 public class NameChange extends android.support.v4.app.DialogFragment {
 
     private EditText nameChangeET;
-    private final static String baseURL2 = SharedPref.BASE_URL + "order";
+    private final static String baseURL2 = SharedPref.BASE_URL + "session";
     private final static String TAG = "NameChange";
 
     public NameChange(){
@@ -74,13 +74,14 @@ public class NameChange extends android.support.v4.app.DialogFragment {
             @Override
             public void onClick(View v) {
                 //NameChange.this.dismiss();
-                String newName  =  nameChangeET.getText().toString();
-                if(newName.length() > 0 && newName.equals(SharedPref.getUserName(getContext()))) {
+                final String newName  =  nameChangeET.getText().toString();
+                if(newName.length() > 0 && !newName.equals(SharedPref.getUserName(getContext()))) {
                     NetworkConnection.testPath(baseURL2);
                     NetworkConnection.productionPath(baseURL2);
                     Map<String, String> params = new HashMap<>();
                     params.put("action", "5");
                     params.put("session_id", SharedPref.getSessionId(getContext()));
+                    params.put("name", newName);
 
                     NetworkConnection.with(getContext()).withListener(new NetworkConnection.ResponseListener() {
                         @Override
@@ -90,7 +91,8 @@ public class NameChange extends android.support.v4.app.DialogFragment {
                                 JSONObject jsonObject = new JSONObject(response);
 
                                 if (jsonObject.optBoolean("success")) {
-                                    SharedPref.setUserName(getContext(), "");
+                                    SharedPref.setUserName(getContext(), newName);
+                                    Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
                                 }
                                 NameChange.this.dismiss();
                             } catch (JSONException e) {
@@ -105,7 +107,13 @@ public class NameChange extends android.support.v4.app.DialogFragment {
                         }
                     }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
                 }else{
-                    NameChange.this.dismiss();
+
+                    if(newName.length() < 1){
+                        Toast.makeText(getContext(), "Name Cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    if(newName.equals(SharedPref.getUserName(getContext()))){
+                        Toast.makeText(getContext(), "Name is same as previous name", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

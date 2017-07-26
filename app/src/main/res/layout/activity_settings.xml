@@ -22,10 +22,11 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +34,7 @@
             android:background="@color/foreground_color"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:padding="16dp">
 
             <com.dhakariders.user.utils.RoundedImage
                 android:layout_width="160dp"
@@ -42,35 +43,40 @@
                 app:border_color="@color/white"
                 app:border_width="2dp" />
 
-            <TextView
-                android:id="@+id/settingNameTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/home_btn_bg"
-                android:padding="8dp"
-                android:text="Name -  Rezwan" />
-
-            <TextView
-                android:id="@+id/settingPhoneTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/home_btn_bg"
-                android:padding="8dp"
-                android:text="Mobile -  01717230976" />
-
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/settingNameTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/home_btn_bg"
+            android:padding="8dp"
+            android:text="Name -  Rezwan"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/settingPhoneTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/home_btn_bg"
+            android:padding="8dp"
+            android:text="Mobile -  01717230976"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
         <View
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <LinearLayout
-            android:visibility="gone"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@drawable/home_btn_bg_2"
@@ -82,13 +88,13 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginLeft="4dp"
-                android:src="@drawable/ic_settings" />
+                android:src="@drawable/ic_profile_b" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Change Profile Picture"
+                android:text="Change Profile Name  "
                 android:textAllCaps="false"
                 android:textColor="@color/background_color"
                 android:textSize="18sp" />
@@ -96,45 +102,8 @@
         </LinearLayout>
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/home_btn_bg_2"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="4dp"
-                android:src="@drawable/ic_settings" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="Change Profile Name"
-                android:textAllCaps="false"
-                android:textColor="@color/background_color"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@drawable/home_btn_bg_2"
@@ -147,13 +116,13 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginLeft="4dp"
-                android:src="@drawable/ic_settings" />
+                android:src="@drawable/ic_password" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Change User Password"
+                android:text="Change User Password  "
                 android:textAllCaps="false"
                 android:textColor="@color/background_color"
                 android:textSize="18sp" />

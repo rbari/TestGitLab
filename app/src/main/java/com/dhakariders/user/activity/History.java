@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class History extends AppCompatActivity {
 
-    private final static String baseURL2 = SharedPref.BASE_URL + "order";
+    private final static String baseURL2 = SharedPref.BASE_URL + "session";
     private final static String TAG = "History";
     private RecyclerView recyclerView;
     private HistoryAdapter recyclerViewAdapter;
@@ -73,8 +73,9 @@ public class History extends AppCompatActivity {
         NetworkConnection.testPath(baseURL2);
         NetworkConnection.productionPath(baseURL2);
         Map<String, String> params = new HashMap<>();
-        params.put("action", "5");
+        params.put("action", "6");
         params.put("session_id", SharedPref.getSessionId(this));
+        params.put("index", ""+index);
 
         NetworkConnection.with(this).withListener(new NetworkConnection.ResponseListener() {
             @Override

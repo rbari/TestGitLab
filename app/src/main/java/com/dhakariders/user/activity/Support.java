@@ -62,7 +62,7 @@ public class Support extends AppCompatActivity {
                     new String[]{Manifest.permission.CALL_PHONE},
                     404);
         } else {
-            startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:+88096145050")));
+            startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:+8809614505050")));
         }
 
     }
