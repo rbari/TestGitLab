@@ -1,6 +1,7 @@
 package com.dhakariders.user.fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -11,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.dhakariders.R;
+import com.dhakariders.user.activity.Settings;
 import com.dhakariders.user.utils.SharedPref;
 import com.softwaremobility.network.Connection;
 import com.softwaremobility.simplehttp.NetworkConnection;
@@ -34,6 +37,8 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
     private EditText currentPasswordET;
     private EditText newPasswordET_1;
     private EditText newPasswordET_2;
+    public static Settings settings;
+    private ProgressDialog pd;
 
     public PasswordChange(){
 
@@ -50,6 +55,9 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.setCanceledOnTouchOutside(false);
         }
+        pd = new ProgressDialog(getContext(), R.style.Theme_MyDialog);
+        pd.setMessage("REQUESTING");
+        pd.setCancelable(false);
     }
 
     @Override
@@ -72,11 +80,12 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
             @Override
             public void onClick(View v) {
                 //PasswordChange.this.dismiss();
+
                 String currentPassword  =  currentPasswordET.getText().toString();
                 final String password_0 =  newPasswordET_1.getText().toString();
                 String password_1  =  newPasswordET_2.getText().toString();
                 if(!currentPassword.equals(SharedPref.getPassword(getContext()))){
-                    Toast.makeText(getContext(), "Current password didn't match", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Current password didn't match - "+SharedPref.getPassword(getContext()), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(password_0.length() < 4 || password_1.length() < 4){
@@ -87,6 +96,7 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
                     Toast.makeText(getContext(), "Both password did not match", Toast.LENGTH_LONG).show();
                     return;
                 }
+                pd.show();
 
                 NetworkConnection.testPath(baseURL2);
                 NetworkConnection.productionPath(baseURL2);
@@ -108,6 +118,7 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
                             }else{
                                 Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                             }
+                            pd.dismiss();
                             PasswordChange.this.dismiss();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -117,6 +128,7 @@ public class PasswordChange extends android.support.v4.app.DialogFragment {
                     @Override
                     public void onErrorResponse(String error, String message, int code) {
                         Log.w(TAG, error + "  " + message + " " + code);
+                        pd.dismiss();
 
                     }
                 }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);

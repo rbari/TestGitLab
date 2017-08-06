@@ -109,17 +109,16 @@ public class Order extends android.support.v4.app.DialogFragment {
 
                         SharedPref.setHasAnActiveOrder(getContext(), true);
                         SharedPref.setOrderID(getContext(), orderID);
-                        //SharedPref.setDriverDetails(getContext(), msg);
                         SharedPref.setDriverName(getContext(), driverName);
                         SharedPref.setDriverNumber(getContext(), driverPhone);
                         try {
                             Intent intent = new Intent(getActivity(), OrderDetails.class);
-                            startActivity(intent);
+                            getActivity().startActivity(intent);
+                            Order.this.dismiss();
                             getActivity().finish();
                         }catch (Exception ignored){
 
                         }
-                        Order.this.dismiss();
                     }
 
                     @Override

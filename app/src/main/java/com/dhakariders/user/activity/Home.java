@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -40,7 +41,6 @@ public class Home extends AppCompatActivity
         getSupportActionBar().setTitle("Dhaka Riders");
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -51,7 +51,7 @@ public class Home extends AppCompatActivity
 
         Menu menu = navigationView.getMenu();
 
-        MenuItem tools= menu.findItem(R.id.Communicate);
+        MenuItem tools = menu.findItem(R.id.Communicate);
         SpannableString s = new SpannableString(tools.getTitle());
         s.setSpan(new TextAppearanceSpan(this, R.style.NavMenuTitle), 0, s.length(), 0);
         tools.setTitle(s);
@@ -60,22 +60,23 @@ public class Home extends AppCompatActivity
         findViewById(R.id.hireRide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent  =  new Intent(Home.this, PickUpAndDropOff.class);
+                Intent intent = new Intent(Home.this, PickUpAndDropOff.class);
                 startActivity(intent);
             }
         });
-        preview = (ImageView)findViewById(R.id.previewImage);
+        preview = (ImageView) findViewById(R.id.previewImage);
         preview.setImageResource(R.drawable.preview_01);
         findViewById(R.id.homePromoBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPromoFragment();
+               // showPromoFragment();
+                Toast.makeText(Home.this, "Coming Soon", Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.homeUserProBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent  =  new Intent(Home.this, Settings.class);
+                Intent intent = new Intent(Home.this, Settings.class);
                 startActivity(intent);
             }
         });
@@ -83,7 +84,7 @@ public class Home extends AppCompatActivity
         findViewById(R.id.homeSupportBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent  =  new Intent(v.getContext(), Support.class);
+                Intent intent = new Intent(v.getContext(), Support.class);
                 startActivity(intent);
             }
         });
@@ -91,8 +92,8 @@ public class Home extends AppCompatActivity
 
         View headerLayout = navigationView.getHeaderView(0);
 
-        ((TextView)headerLayout.findViewById(R.id.drawerUserName)).setText(SharedPref.getUserName(this));
-        userNameTV =  ((TextView)headerLayout.findViewById(R.id.drawerUserNumber));
+        ((TextView) headerLayout.findViewById(R.id.drawerUserNumber)).setText(SharedPref.getUserPhoneNumber(this));
+        userNameTV = ((TextView) headerLayout.findViewById(R.id.drawerUserName));
     }
 
     Handler pictureChanger;
@@ -102,15 +103,16 @@ public class Home extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if(SharedPref.isOrderActive(this)){
-            Intent intent =  new Intent(this, OrderDetails.class);
+        if (SharedPref.isOrderActive(this)) {
+            Intent intent = new Intent(this, OrderDetails.class);
             startActivity(intent);
             finish();
             return;
         }
         isActive = true;
-        if(userNameTV != null){
-            userNameTV.setText(SharedPref.getUserPhoneNumber(this));
+        Log.e("TAGGy", "Got resume");
+        if (userNameTV != null) {
+            userNameTV.setText(SharedPref.getUserName(this));
         }
        /* if(pictureChanger == null){
             pictureChanger = new Handler();
@@ -124,9 +126,9 @@ public class Home extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(isActive && preview != null){
+                    if (isActive && preview != null) {
                         index++;
-                        if(index == 5){
+                        if (index == 5) {
                             index = 0;
                         }
                         preview.setImageResource(images[index]);
@@ -172,7 +174,7 @@ public class Home extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_notification) {
-            Intent intent  =  new Intent(this, Notification.class);
+            Intent intent = new Intent(this, Notification.class);
             startActivity(intent);
             return true;
         }
@@ -188,20 +190,20 @@ public class Home extends AppCompatActivity
 
         if (id == R.id.nav_promo) {
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
-           //showPromoFragment();
+            //showPromoFragment();
         } else if (id == R.id.nav_free_ride) {
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
             //showFreeRideFragment();
         } else if (id == R.id.nav_history) {
-            Intent intent  =  new Intent(this, History.class);
+            Intent intent = new Intent(this, History.class);
             startActivity(intent);
         } else if (id == R.id.nav_support) {
-            Intent intent  =  new Intent(this, Support.class);
+            Intent intent = new Intent(this, Support.class);
             startActivity(intent);
         } else if (id == R.id.nav_about) {
-            Intent intent  =  new Intent(this, About.class);
+            Intent intent = new Intent(this, About.class);
             startActivity(intent);
-        } else if(id == R.id.nav_logOut){
+        } else if (id == R.id.nav_logOut) {
             SharedPref.setIsLoggedIn(this, false);
             Intent intent = new Intent(this, LoginSignUpActivity.class);
             startActivity(intent);
@@ -215,11 +217,11 @@ public class Home extends AppCompatActivity
 
     private void showFreeRideFragment() {
         FreeRides freeRides = new FreeRides();
-        freeRides.show(getSupportFragmentManager(),"Promotions");
+        freeRides.show(getSupportFragmentManager(), "Promotions");
     }
 
     private void showPromoFragment() {
         Promotions promotions = new Promotions();
-        promotions.show(getSupportFragmentManager(),"Promotions");
+        promotions.show(getSupportFragmentManager(), "Promotions");
     }
 }

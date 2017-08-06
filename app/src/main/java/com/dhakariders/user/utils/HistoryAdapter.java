@@ -21,12 +21,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.SimpleVi
     private Context context;
     private ArrayList<HistoryDTO> historyDTOs;
     private RequestMoreData requestMoreData;
-    private int lastRequestedIndex;
+    private String lastRequestedIndex;
 
     public HistoryAdapter(Context context){
         this.context = context;
         historyDTOs  =  new ArrayList<>();
-        lastRequestedIndex = 0;
+        lastRequestedIndex = "0";
     }
 
     public void addHistoryDTOs(Collection<HistoryDTO> historyDTOs){
@@ -65,14 +65,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.SimpleVi
     @Override
 
     public void onBindViewHolder(SimpleViewHolder holder, int position) {
-        holder.orderId.setText(historyDTOs.get(position).orderId);
+        holder.orderId.setText("ID: "+historyDTOs.get(position).orderId);
         holder.driverName.setText(historyDTOs.get(position).driverName);
         holder.driverNumber.setText(historyDTOs.get(position).driverNumber);
         holder.bill.setText(historyDTOs.get(position).bill);
         holder.distance.setText(historyDTOs.get(position).distance);
-        if(position == historyDTOs.size()-1 && position != lastRequestedIndex){
-            lastRequestedIndex  = position;
-            requestMoreData.request(position);
+        if(position == historyDTOs.size()-1 &&  !historyDTOs.get(position).orderId.equals(lastRequestedIndex)){
+            lastRequestedIndex  = historyDTOs.get(position).orderId;
+            requestMoreData.request(historyDTOs.get(position).orderId);
         }
 
     }
@@ -90,7 +90,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.SimpleVi
     }
 
     public interface RequestMoreData{
-        void request(int index);
+        void request(String index);
     }
 
 }

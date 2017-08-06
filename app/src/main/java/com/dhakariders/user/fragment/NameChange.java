@@ -1,6 +1,8 @@
 package com.dhakariders.user.fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,12 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dhakariders.R;
 import com.dhakariders.user.activity.Home;
 import com.dhakariders.user.activity.OrderDetails;
+import com.dhakariders.user.activity.Settings;
 import com.dhakariders.user.utils.SharedPref;
 import com.softwaremobility.network.Connection;
 import com.softwaremobility.simplehttp.NetworkConnection;
@@ -36,6 +40,8 @@ public class NameChange extends android.support.v4.app.DialogFragment {
     private EditText nameChangeET;
     private final static String baseURL2 = SharedPref.BASE_URL + "session";
     private final static String TAG = "NameChange";
+    private ProgressDialog pd;
+    public static Settings settings;
 
     public NameChange(){
 
@@ -52,6 +58,9 @@ public class NameChange extends android.support.v4.app.DialogFragment {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.setCanceledOnTouchOutside(false);
         }
+        pd = new ProgressDialog(getContext(), R.style.Theme_MyDialog);
+        pd.setMessage("REQUESTING");
+        pd.setCancelable(false);
     }
 
     @Override
@@ -74,6 +83,12 @@ public class NameChange extends android.support.v4.app.DialogFragment {
             @Override
             public void onClick(View v) {
                 //NameChange.this.dismiss();
+                pd.show();
+                View view = getActivity().getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 final String newName  =  nameChangeET.getText().toString();
                 if(newName.length() > 0 && !newName.equals(SharedPref.getUserName(getContext()))) {
                     NetworkConnection.testPath(baseURL2);
@@ -94,6 +109,13 @@ public class NameChange extends android.support.v4.app.DialogFragment {
                                     SharedPref.setUserName(getContext(), newName);
                                     Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
                                 }
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        settings.updateField();
+                                    }
+                                });
+                                pd.dismiss();
                                 NameChange.this.dismiss();
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -103,6 +125,7 @@ public class NameChange extends android.support.v4.app.DialogFragment {
                         @Override
                         public void onErrorResponse(String error, String message, int code) {
                             Log.w(TAG, error + "  " + message + " " + code);
+                            pd.dismiss();
 
                         }
                     }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);

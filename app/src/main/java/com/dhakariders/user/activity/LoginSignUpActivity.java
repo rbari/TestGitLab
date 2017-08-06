@@ -55,7 +55,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void init() {
-        pd = new ProgressDialog(this, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        pd = new ProgressDialog(this, R.style.Theme_MyDialog);
         pd.setMessage("LOADING");
         pd.setCancelable(false);
 
@@ -164,7 +164,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
     private void signUpTask() {
         final String userName = signUpNameET.getText().toString();
         final String phoneNumber = signUpPhoneNumberET.getText().toString();
-        String password_0 = signUpPasswordET_0.getText().toString();
+        final String password_0 = signUpPasswordET_0.getText().toString();
         String password_1 = signUpPasswordET_1.getText().toString();
         if(userName.length() < 1){
             Toast.makeText(this, "User name cannot be empty", Toast.LENGTH_LONG).show();
@@ -204,6 +204,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
                         SharedPref.setSessionId(LoginSignUpActivity.this, session_id);
                         SharedPref.setUserName(LoginSignUpActivity.this, userName);
                         SharedPref.setUserPhoneNumber(LoginSignUpActivity.this, phoneNumber);
+                        SharedPref.setPassword(LoginSignUpActivity.this, password_0);
                         Intent intent = new Intent(LoginSignUpActivity.this, Home.class);
                         startActivity(intent);
                         finish();
@@ -246,7 +247,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
 
     private void logInTask() {
         final String phoneNumber = loginPhoneNumberET.getText().toString();
-        String password = loginPasswordET.getText().toString();
+        final String password = loginPasswordET.getText().toString();
         if (phoneNumber.length() != 11) {
             Toast.makeText(this, "Please provide a valid bangladeshi 11 digits mobile number without country code", Toast.LENGTH_LONG).show();
             return;
@@ -276,6 +277,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements View.OnCli
                         String name  =  jsonObject.getString("username");
                         SharedPref.setUserPhoneNumber(LoginSignUpActivity.this, phoneNumber);
                         SharedPref.setUserName(LoginSignUpActivity.this, name);
+                        SharedPref.setPassword(LoginSignUpActivity.this, password);
                         SharedPref.setIsLoggedIn(LoginSignUpActivity.this, true);
                         SharedPref.setSessionId(LoginSignUpActivity.this, session_id);
                         Intent intent = new Intent(LoginSignUpActivity.this, Home.class);

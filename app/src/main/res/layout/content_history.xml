@@ -13,4 +13,14 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>
 
+   <TextView
+       android:id="@+id/noHistoryTV"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerInParent="true"
+       android:text="No History"
+       android:textColor="@color/background_color_highlight"
+       android:textSize="24sp"
+       android:textStyle="italic" />
+
 </RelativeLayout>

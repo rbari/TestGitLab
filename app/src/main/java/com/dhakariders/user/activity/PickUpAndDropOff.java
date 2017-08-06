@@ -249,7 +249,7 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
             Toast.makeText(mContext, "Location not supported in this device", Toast.LENGTH_SHORT).show();
         }
         sessionID = SharedPref.getSessionId(this);
-        pd = new ProgressDialog(this, ProgressDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        pd = new ProgressDialog(this, R.style.Theme_MyDialog);
         pd.setMessage("REQUESTING");
         pd.setCancelable(false);
     }
@@ -283,6 +283,9 @@ public class PickUpAndDropOff extends AppCompatActivity implements OnMapReadyCal
         params.put("s_lon", String.valueOf(df1.format(fromLatLong.longitude)));
         params.put("e_lat", String.valueOf(df1.format(toLatLong.latitude)));
         params.put("e_lon", String.valueOf(df1.format(toLatLong.longitude)));
+        if(distance == null){
+            distance = "0";
+        }
         params.put("dist", distance);
 
 /*
@@ -692,23 +695,18 @@ class AddressResultReceiver extends ResultReceiver {
             // builder checks this and throws an exception if it is not the case.
             AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
                     .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+                    .setCountry("BD")
                     .build();
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
                     .setFilter(typeFilter)
                     .build(this);
             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
-        } catch (GooglePlayServicesRepairableException e) {
+        } catch (Exception e) {
             // Indicates that Google Play Services is either not installed or not up to date. Prompt
             // the user to correct the issue.
-            GoogleApiAvailability.getInstance().getErrorDialog(this, e.getConnectionStatusCode(),
-                    0 /* requestCode */).show();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            // Indicates that Google Play Services is not available and the problem is not easily
-            // resolvable.
-            String message = "Google Play Services is not available: " +
-                    GoogleApiAvailability.getInstance().getErrorString(e.errorCode);
+            String message = "Google Play Services is not available ";
 
-            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         }
     }
 

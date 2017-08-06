@@ -1,5 +1,6 @@
 package com.dhakariders.user.activity;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.dhakariders.R;
 import com.dhakariders.user.fragment.NameChange;
@@ -32,7 +35,8 @@ public class History extends AppCompatActivity {
     private RecyclerView recyclerView;
     private HistoryAdapter recyclerViewAdapter;
     private LinkedHashMap <String, HistoryDTO> historyDTOs;
-
+    private ProgressDialog pd;
+    private View noHistoryTV;
 
 
     @Override
@@ -46,6 +50,9 @@ public class History extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("History");
+        pd = new ProgressDialog(this, R.style.Theme_MyDialog);
+        pd.setMessage("REQUESTING DATA");
+        pd.setCancelable(false);
         setUpRecycleView();
     }
 
@@ -60,16 +67,19 @@ public class History extends AppCompatActivity {
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.history_divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(recyclerViewAdapter);
+        noHistoryTV  = findViewById(R.id.noHistoryTV);
         recyclerViewAdapter.setListener(new HistoryAdapter.RequestMoreData() {
             @Override
-            public void request(int index) {
+            public void request(String index) {
+                Toast.makeText(History.this, "Loading more", Toast.LENGTH_SHORT).show();
                 makeServerRequest(index);
             }
         });
-        makeServerRequest(0);
+        pd.show();
+        makeServerRequest("0");
     }
 
-    private void makeServerRequest(int index) {
+    private void makeServerRequest(String index) {
         NetworkConnection.testPath(baseURL2);
         NetworkConnection.productionPath(baseURL2);
         Map<String, String> params = new HashMap<>();
@@ -116,16 +126,21 @@ public class History extends AppCompatActivity {
 
         }
         temp.keySet().removeAll(historyDTOs.keySet());
-        if(temp.size() > 0){
+
             historyDTOs.putAll(temp);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    recyclerViewAdapter.addHistoryDTOs(temp.values());
-                    recyclerViewAdapter.notifyDataSetChanged();
+                    if (temp.size() > 0) {
+                        recyclerViewAdapter.addHistoryDTOs(temp.values());
+                        recyclerViewAdapter.notifyDataSetChanged();
+                    }
+                    pd.dismiss();
+                    if(recyclerViewAdapter.getItemCount() > 0  && noHistoryTV.getVisibility() == View.VISIBLE){
+                        noHistoryTV.setVisibility(View.GONE);
+                    }
                 }
             });
-        }
     }
 
     @Override

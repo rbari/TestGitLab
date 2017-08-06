@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.dhakariders.R;
 import com.dhakariders.user.fragment.HomeFragment;
+import com.dhakariders.user.fragment.Order;
 import com.dhakariders.user.utils.SharedPref;
 import com.softwaremobility.network.Connection;
 import com.softwaremobility.simplehttp.NetworkConnection;
@@ -94,7 +95,7 @@ public class OrderDetails extends AppCompatActivity {
         paidBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                paidButtonPressed(v.getContext());
+                paidButtonPressed(OrderDetails.this);
             }
         });
         paidBtn.setVisibility(View.GONE);
@@ -104,45 +105,52 @@ public class OrderDetails extends AppCompatActivity {
 
     private void paidButtonPressed(Context context) {
         if(driver_status == 1){
+            try {
+                NetworkConnection.testPath(baseURL2);
+                NetworkConnection.productionPath(baseURL2);
+                Map<String, String> params = new HashMap<>();
+                params.put("action", "5");
+                params.put("session_id", SharedPref.getSessionId(OrderDetails.this));
+                params.put("ord_id", "" + SharedPref.getOrderID(OrderDetails.this));
 
-            NetworkConnection.testPath(baseURL2);
-            NetworkConnection.productionPath(baseURL2);
-            Map<String, String> params = new HashMap<>();
-            params.put("action", "5");
-            params.put("session_id", SharedPref.getSessionId(OrderDetails.this));
-            params.put("ord_id", "" + SharedPref.getOrderID(OrderDetails.this));
+                NetworkConnection.with(OrderDetails.this).withListener(new NetworkConnection.ResponseListener() {
+                    @Override
+                    public void onSuccessfullyResponse(String response) {
+                        Log.w(TAG, "SERVER MESSAGE" + response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
 
-            NetworkConnection.with(OrderDetails.this).withListener(new NetworkConnection.ResponseListener() {
-                @Override
-                public void onSuccessfullyResponse(String response) {
-                    Log.w(TAG, "SERVER MESSAGE" + response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.optBoolean("success")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            SharedPref.setHasAnActiveOrder(getApplicationContext(), false);
+                                            Intent intent = new Intent(OrderDetails.this, Home.class);
+                                            OrderDetails.this.startActivity(intent);
+                                            OrderDetails.this.finish();
+                                        }catch (Exception ignored){
 
-                        if (jsonObject.optBoolean("success")) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    SharedPref.setHasAnActiveOrder(OrderDetails.this, false);
-                                    Intent intent = new Intent(OrderDetails.this, Home.class);
-                                    OrderDetails.this.startActivity(intent);
-                                    OrderDetails.this.finish();
+                                        }
 
-                                }
-                            });
+                                    }
+                                });
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                }
 
-                @Override
-                public void onErrorResponse(String error, String message, int code) {
-                    Log.w(TAG, error + "  " + message + " " + code);
+                    @Override
+                    public void onErrorResponse(String error, String message, int code) {
+                        Log.w(TAG, error + "  " + message + " " + code);
 
-                }
-            }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
+                    }
+                }).doRequest(Connection.REQUEST.GET, Uri.parse(""), params, null, null);
+            }catch (Exception ignored){
+
+            }
 
         }else {
             SharedPref.setHasAnActiveOrder(context, false);
@@ -241,14 +249,18 @@ public class OrderDetails extends AppCompatActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                if(detailsHolder.getVisibility() != View.VISIBLE){
-                                                    detailsHolder.setVisibility(View.VISIBLE);
-                                                }
-                                                billTV.setText("Bill : "+bill+"tk");
-                                                distanceTv.setText("Distance : "+distance+"km");
-                                                driverStatus.setText("Status - Ride Started");
-                                                if(paidBtn.getVisibility() == View.VISIBLE){
-                                                    paidBtn.setVisibility(View.GONE);
+                                                try {
+                                                    if (detailsHolder.getVisibility() != View.VISIBLE) {
+                                                        detailsHolder.setVisibility(View.VISIBLE);
+                                                    }
+                                                    billTV.setText("Bill : " + bill + "tk");
+                                                    distanceTv.setText("Distance : " + distance + "km");
+                                                    driverStatus.setText("Status - Ride Started");
+                                                    if (paidBtn.getVisibility() == View.VISIBLE) {
+                                                        paidBtn.setVisibility(View.GONE);
+                                                    }
+                                                }catch (Exception ignored){
+
                                                 }
                                             }
                                         });
@@ -259,21 +271,30 @@ public class OrderDetails extends AppCompatActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                if(paidBtn.getVisibility() != View.VISIBLE) {
-                                                    driverStatus.setText("Status - Ride ENDED");
-                                                    paidBtn.setVisibility(View.VISIBLE);
-                                                    paidBtn.setText("PAID");
-                                                    if(mapHolder.getVisibility() != View.GONE){
-                                                        mapHolder.setVisibility(View.GONE);
-                                                        handShakeView.setVisibility(View.VISIBLE);
+                                                try {
+                                                    if (paidBtn.getVisibility() != View.VISIBLE) {
+                                                        driverStatus.setText("Status - Ride ENDED");
+                                                        paidBtn.setVisibility(View.VISIBLE);
+                                                        paidBtn.setText("PAID");
+                                                        if (mapHolder.getVisibility() != View.GONE) {
+                                                            mapHolder.setVisibility(View.GONE);
+                                                            handShakeView.setVisibility(View.VISIBLE);
+                                                        }
                                                     }
+                                                }catch (Exception ignored){
+
                                                 }
 
                                             }
                                         });
                                     }
                                     else {
-                                        driverStatus.setText("Status - Synchronizing");
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                driverStatus.setText("Status - Synchronizing");
+                                            }
+                                        });
                                     }
                                     runOnUiThread(new Runnable() {
                                         @Override

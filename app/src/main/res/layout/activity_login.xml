@@ -68,7 +68,7 @@
                 android:layout_gravity="center">
 
 
-                <com.example.rezwan.letsmakeithappen.PasswordEditText
+                <com.dhakariders.user.utils.PasswordEditText
                     android:id="@+id/passwordET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
